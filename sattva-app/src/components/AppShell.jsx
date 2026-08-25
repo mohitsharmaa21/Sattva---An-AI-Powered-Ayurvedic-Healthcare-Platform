@@ -1,6 +1,7 @@
 import { NavLink, Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import sattvaLogo from "../assets/sattva-logo.png";
+import { getActiveUser, getUserInitials } from "../utils/user";
 
 const Icon = ({ name, size = 18 }) => {
   const paths = {
@@ -26,6 +27,8 @@ export default function AppShell({ children }) {
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const doctorMode = location.pathname === "/doctor-dashboard";
+  const activeUser = getActiveUser();
+  const initials = getUserInitials(activeUser);
   return <div className={`app-shell ${open ? "shell-open" : ""}`}>
     <aside className="app-sidebar">
       <Link className="app-brand" to="/dashboard"><img src={sattvaLogo} alt="Sattva"/><span>Sattva</span></Link>
@@ -33,6 +36,6 @@ export default function AppShell({ children }) {
       <nav>{doctorMode ? <NavLink to="/doctor-dashboard" className="side-link"><Icon name="users"/>Doctor workspace</NavLink> : items.map(([to, label, icon]) => <NavLink key={to} to={to} onClick={() => setOpen(false)} className="side-link"><Icon name={icon}/><span>{label}</span></NavLink>)}</nav>
       <div className="sidebar-bottom"><NavLink to="/login" className="side-link"><Icon name="settings"/><span>Account & settings</span></NavLink><p>Demo patient data · Not medical advice</p></div>
     </aside>
-    <div className="app-frame"><header className="app-topbar"><button className="icon-button menu-trigger" onClick={() => setOpen(!open)} aria-label="Toggle navigation"><Icon name="menu"/></button><div className="crumb">{doctorMode ? "Clinical workspace" : "Sattva health"}</div><div className="topbar-actions"><button className="icon-button" aria-label="Notifications"><Icon name="bell"/></button><Link to="/login" className="user-chip"><span>NK</span><b>Nishchal</b></Link></div></header><main className="app-content">{children}</main></div>
+    <div className="app-frame"><header className="app-topbar"><button className="icon-button menu-trigger" onClick={() => setOpen(!open)} aria-label="Toggle navigation"><Icon name="menu"/></button><div className="crumb">{doctorMode ? "Clinical workspace" : "Sattva health"}</div><div className="topbar-actions"><button className="icon-button" aria-label="Notifications"><Icon name="bell"/></button><Link to="/login" className="user-chip"><span>{initials}</span><b>{activeUser}</b></Link></div></header><main className="app-content">{children}</main></div>
   </div>;
 }

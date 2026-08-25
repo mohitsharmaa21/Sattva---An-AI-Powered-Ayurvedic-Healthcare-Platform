@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { randomizeUser } from "../utils/user";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -19,6 +20,8 @@ export default function Login() {
     setTimeout(() => {
       setIsAuthenticating(false);
       if (role === "patient") {
+        randomizeUser();
+        localStorage.removeItem("sattva_location");
         navigate("/dashboard");
       } else {
         navigate("/doctor-dashboard");
