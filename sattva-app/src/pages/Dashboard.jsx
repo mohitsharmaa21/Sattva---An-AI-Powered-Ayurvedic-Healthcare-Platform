@@ -49,12 +49,46 @@ export default function Dashboard() {
     setShowLocationModal(false);
   };
 
+  const currentDateGregorian = new Intl.DateTimeFormat('en-IN', {
+    timeZone: 'Asia/Kolkata',
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  }).format(new Date()).toUpperCase();
+
+  const currentDateSaka = new Intl.DateTimeFormat('en-IN', {
+    timeZone: 'Asia/Kolkata',
+    calendar: 'indian',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  }).format(new Date()).toUpperCase().replace('Ś', 'S');
+
+  const nextConsultDate = new Intl.DateTimeFormat('en-IN', {
+    timeZone: 'Asia/Kolkata',
+    day: 'numeric',
+    month: 'short'
+  }).format(new Date(Date.now() + 2 * 24 * 60 * 60 * 1000));
+
+  const lastAICheckDate = new Intl.DateTimeFormat('en-IN', {
+    timeZone: 'Asia/Kolkata',
+    day: 'numeric',
+    month: 'short'
+  }).format(new Date(Date.now() - 2 * 24 * 60 * 60 * 1000));
+
+  const pastReportDate = new Intl.DateTimeFormat('en-IN', {
+    timeZone: 'Asia/Kolkata',
+    day: 'numeric',
+    month: 'short'
+  }).format(new Date(Date.now() - 9 * 24 * 60 * 60 * 1000));
+
   return <div className="dashboard-page">
-    <header className="page-heading dashboard-heading"><div><span className="eyebrow">FRIDAY, 14 AUGUST</span><h1>Good morning, {activeUser}</h1><p>Here’s your health overview for today.</p></div><div className="heading-actions"><span className="data-note">Simulated wellness data</span><Link className="primary-button" to="/ai-check">Start AI check</Link></div></header>
-    <section className="status-row"><div><span>Health status</span><b className="status-good">On track</b></div><div><span>Risk indicator</span><b>42% <small>Low–moderate</small></b></div><div><span>Next consultation</span><b>18 Aug <small>10:30 AM</small></b></div><div><span>Last AI check</span><b>12 Aug <small>Updated</small></b></div></section>
+    <header className="page-heading dashboard-heading"><div><span className="eyebrow">{currentDateGregorian} | {currentDateSaka}</span><h1>Good morning, {activeUser}</h1><p>Here’s your health overview for today.</p></div><div className="heading-actions"><span className="data-note">Simulated wellness data</span><Link className="primary-button" to="/ai-check">Start AI check</Link></div></header>
+    <section className="status-row"><div><span>Health status</span><b className="status-good">On track</b></div><div><span>Risk indicator</span><b>42% <small>Low–moderate</small></b></div><div><span>Next consultation</span><b>{nextConsultDate} <small>10:30 AM</small></b></div><div><span>Last AI check</span><b>{lastAICheckDate} <small>Updated</small></b></div></section>
     <div className="dashboard-grid"><div className="dashboard-main"><section className="metrics-grid"><Metric label="Sleep" value="7h 42m" detail="86% sleep quality" trend="↑ 8%" color="#4a769c"/><Metric label="Activity" value="7,240" detail="54 active minutes" trend="↑ 12%" color="#2e6a4f"/><Metric label="Stress" value="38%" detail="Balanced today" trend="↓ 6%" color="#c28b3f"/><Metric label="Recovery" value="82" detail="Sleep + activity aligned" trend="↑ 4%" color="#765e9b"/></section>
       <section className="activity-panel"><div className="panel-heading"><div><span className="section-kicker">MOVEMENT</span><h2>Weekly activity</h2><p>7,240 steps today · 68% of your goal</p></div><div className="segment-control">{["Week","Month"].map(item=><button key={item} className={period===item?"selected":""} onClick={()=>setPeriod(item)}>{item}</button>)}</div></div><div className="activity-chart">{bars.map((height,index)=><div className="bar-col" key={index}><div className="activity-bar" style={{height:`${period === "Week" ? height : Math.min(height+10,95)}%`}}></div><span>{["M","T","W","T","F","S","S"][index]}</span></div>)}</div></section>
-      <section className="care-panel"><div><span className="section-kicker">NEXT STEP</span><h2>Your weekly care plan</h2><p>Complete a short health check so your care team has an updated view before your consultation.</p></div><Link to="/ai-check" className="secondary-button">Continue health check</Link></section></div><aside className="dashboard-aside"><RiskGauge/><section className="timeline-card"><div className="panel-heading"><h2>Recent health activity</h2><Link to="/history">View all</Link></div>{[["Today","Activity synced","7,240 steps recorded"],["12 Aug","AI assessment","Wellness summary created"],["05 Aug","Health report","Blood panel uploaded"]].map(([date,title,detail])=><div className="mini-timeline" key={title}><span></span><div><small>{date}</small><b>{title}</b><p>{detail}</p></div></div>)}</section></aside></div>
+      <section className="care-panel"><div><span className="section-kicker">NEXT STEP</span><h2>Your weekly care plan</h2><p>Complete a short health check so your care team has an updated view before your consultation.</p></div><Link to="/ai-check" className="secondary-button">Continue health check</Link></section></div><aside className="dashboard-aside"><RiskGauge/><section className="timeline-card"><div className="panel-heading"><h2>Recent health activity</h2><Link to="/history">View all</Link></div>{[["Today","Activity synced","7,240 steps recorded"],[lastAICheckDate,"AI assessment","Wellness summary created"],[pastReportDate,"Health report","Blood panel uploaded"]].map(([date,title,detail])=><div className="mini-timeline" key={title}><span></span><div><small>{date}</small><b>{title}</b><p>{detail}</p></div></div>)}</section></aside></div>
 
     <AnimatePresence>
       {showLocationModal && (
