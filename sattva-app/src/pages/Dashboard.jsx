@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { getActiveUser } from "../utils/user";
@@ -10,11 +10,39 @@ function RiskGauge() { const [expanded, setExpanded] = useState(false); return <
 
 export default function Dashboard() {
   const [period, setPeriod] = useState("Week");
-  const [showLocationModal, setShowLocationModal] = useState(() => {
-    return !localStorage.getItem("sattva_location");
-  });
+  const [showLocationModal, setShowLocationModal] = useState(false);
   const [customLocation, setCustomLocation] = useState("");
   const activeUser = getActiveUser();
+
+  useEffect(() => {
+    const storedLocation = localStorage.getItem("sattva_location");
+    if (!storedLocation) {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          async (position) => {
+            const { latitude, longitude } = position.coords;
+            try {
+              const res = await fetch(
+                `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
+              );
+              const data = await res.json();
+              const city = data.city || data.locality || data.principalSubdivision || "Unknown";
+              localStorage.setItem("sattva_location", city);
+            } catch (err) {
+              console.warn("Failed to reverse geocode lat/lng:", err);
+              setShowLocationModal(true);
+            }
+          },
+          (err) => {
+            console.warn("User denied geolocation or query failed:", err);
+            setShowLocationModal(true);
+          }
+        );
+      } else {
+        setShowLocationModal(true);
+      }
+    }
+  }, []);
 
   const handleSelectLocation = (loc) => {
     localStorage.setItem("sattva_location", loc);
