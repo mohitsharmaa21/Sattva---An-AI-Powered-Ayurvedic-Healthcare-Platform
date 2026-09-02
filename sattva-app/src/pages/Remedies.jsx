@@ -1,161 +1,34 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { REMEDIES } from "../data/remediesData";
 
-const REMEDIES = [
-  {
-    id: 1,
-    name: "Ashwagandha Extract",
-    use: "For stress support, calm energy",
-    keywords: ["Stress", "Sleep"],
-    dosage: "300-500mg with warm milk",
-    time: "Before bed",
-    precaution: "Avoid if hyper-acidic",
-    prep: "Naturally extracted and pulverized into micro-fine powder",
-    form: "powder",
-    cat: "popular",
+const EVIDENCE_BADGE_MAP = {
+  A: {
+    label: "Level A: Strong Human Evidence",
+    class: "badge-evidence-a",
   },
-  {
-    id: 2,
-    name: "Triphala Churna",
-    use: "For digestion, gut balance",
-    keywords: ["Digestion", "Detox"],
-    dosage: "1 tsp powder with warm water",
-    time: "Before bed",
-    precaution: "Can act as a mild laxative",
-    prep: "Equal parts Amla, Bibhitaki, Haritaki blended cold",
-    form: "powder",
-    cat: "recommended",
+  B: {
+    label: "Level B: Promising Human Evidence",
+    class: "badge-evidence-b",
   },
-  {
-    id: 3,
-    name: "Brahmi Vati",
-    use: "For focus, clarity, mental calm",
-    keywords: ["Brain", "Focus"],
-    dosage: "500mg with ghee or warm water",
-    time: "Morning",
-    precaution: "May cause slight nausea on empty stomach",
-    prep: "Triturated with water and rolled into pills",
-    form: "tablet",
-    cat: "popular",
+  C: {
+    label: "Level C: Classical / Preliminary",
+    class: "badge-evidence-c",
   },
-  {
-    id: 4,
-    name: "Turmeric Taila",
-    use: "Anti-inflammatory, immunity",
-    keywords: ["Immunity", "Inflammation"],
-    dosage: "Pinch with black pepper in warm fat",
-    time: "Anytime",
-    precaution: "Excess heat can aggravate Pitta",
-    prep: "Infused into pure sesame oil over 48 hours",
-    form: "oil",
-    cat: "recommended",
+  D: {
+    label: "Level D: Insufficient Evidence",
+    class: "badge-evidence-d",
   },
-  {
-    id: 5,
-    name: "Shatavari Root",
-    use: "Hormonal balance, female health",
-    keywords: ["Hormones", "Women"],
-    dosage: "1 tsp with warm milk",
-    time: "Morning or Night",
-    precaution: "Avoid if experiencing high mucus/congestion",
-    prep: "Washed, dried in shade, and powdered",
-    form: "powder",
-    cat: "popular",
-  },
-  {
-    id: 6,
-    name: "Neem Tablets",
-    use: "Detoxification, clear skin",
-    keywords: ["Skin", "Detox"],
-    dosage: "1-2 tablets",
-    time: "Morning",
-    precaution: "Very cooling, can aggravate Vata",
-    prep: "Pressed dry leaf extract",
-    form: "tablet",
-    cat: "recommended",
-  },
-  {
-    id: 7,
-    name: "Tulsi Extract",
-    use: "Respiratory support, mild stress",
-    keywords: ["Respiratory", "Immunity"],
-    dosage: "Tea infusion 2x daily",
-    time: "Morning/Mid-day",
-    precaution: "Mild heating effect",
-    prep: "Hydro-alcoholic extraction",
-    form: "powder",
-    cat: "popular",
-  },
-  {
-    id: 8,
-    name: "Giloy Ghanvati",
-    use: "Potent immune booster",
-    keywords: ["Immunity", "Fever"],
-    dosage: "Juice or 500mg extract",
-    time: "Empty Stomach",
-    precaution: "Can lower blood sugar levels",
-    prep: "Stem decoction boiled down to solid extract",
-    form: "tablet",
-    cat: "recommended",
-  },
-  {
-    id: 9,
-    name: "Guggul Lipid",
-    use: "Cholesterol support, metabolism",
-    keywords: ["Metabolism", "Joints"],
-    dosage: "1 tablet after meals",
-    time: "With Meals",
-    precaution: "Creates heat, careful with Pitta",
-    prep: "Resin purified in Triphala decoction",
-    form: "tablet",
-    cat: "popular",
-  },
-  {
-    id: 10,
-    name: "Arjuna Bark",
-    use: "Cardiac wellness, circulation",
-    keywords: ["Cardiac"],
-    dosage: "Bark decoction or 500mg capsule",
-    time: "Morning",
-    precaution: "Use under guidance for severe conditions",
-    prep: "Sun-dried inner bark ground to fine powder",
-    form: "powder",
-    cat: "recommended",
-  },
-  {
-    id: 11,
-    name: "Shilajit Resin",
-    use: "Vitality, energy stamina",
-    keywords: ["Energy", "Vitality"],
-    dosage: "Pea-sized resin dissolved in milk",
-    time: "Morning",
-    precaution: "Avoid during high fever or acute infections",
-    prep: "Exudate purified via Surya Tapi (sun) method",
-    form: "powder",
-    cat: "popular",
-  },
-  {
-    id: 12,
-    name: "Bhringraj Taila",
-    use: "Hair & scalp health",
-    keywords: ["Hair", "Skin"],
-    dosage: "Apply externally to scalp",
-    time: "Before sleep",
-    precaution: "For external use only",
-    prep: "Boiled in coconut oil with milk",
-    form: "oil",
-    cat: "popular",
-  },
-];
+};
 
 export default function Remedies() {
   const [selectedRemedy, setSelectedRemedy] = useState(null);
 
   // Filter States
   const [searchQuery, setSearchQuery] = useState("");
-  const [problemFilter, setProblemFilter] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("");
   const [formFilter, setFormFilter] = useState("");
-  const [catFilter, setCatFilter] = useState("");
+  const [evidenceFilter, setEvidenceFilter] = useState("");
 
   const [isFiltering, setIsFiltering] = useState(false);
   const [filteredResults, setFilteredResults] = useState(REMEDIES);
@@ -164,7 +37,7 @@ export default function Remedies() {
   const [toast, setToast] = useState(null);
 
   useEffect(() => {
-    const _t = setTimeout(() => setIsFiltering(true), 0);
+    setIsFiltering(true);
     const delay = setTimeout(() => {
       let results = REMEDIES.map((rem) => {
         let score = 0;
@@ -172,45 +45,53 @@ export default function Remedies() {
 
         if (q) {
           const nameLower = rem.name.toLowerCase();
-          const useLower = rem.use.toLowerCase();
-          const keywordsLower = rem.keywords.map((k) => k.toLowerCase());
+          const commonLower = rem.commonName.toLowerCase();
+          const botanicalLower = rem.botanicalName.toLowerCase();
+          const descLower = rem.shortDescription.toLowerCase();
+          const tagMatches = rem.categoryTags.some((tag) =>
+            tag.toLowerCase().includes(q)
+          );
 
           if (nameLower === q) score += 100;
           else if (nameLower.includes(q)) score += 50;
 
-          if (useLower.includes(q)) score += 20;
-
-          if (keywordsLower.includes(q)) score += 30;
-          else if (keywordsLower.some((kw) => kw.includes(q))) score += 10;
+          if (botanicalLower.includes(q) || commonLower.includes(q)) score += 40;
+          if (tagMatches) score += 30;
+          if (descLower.includes(q)) score += 20;
 
           if (score === 0) return null;
         }
 
-        const matchesProb = problemFilter
-          ? rem.keywords.some((kw) =>
-              kw.toLowerCase().includes(problemFilter.toLowerCase()),
-            )
+        const matchesCategory = categoryFilter
+          ? rem.categoryTags.includes(categoryFilter)
           : true;
-        const matchesForm = formFilter ? rem.form === formFilter : true;
-        const matchesCat = catFilter ? rem.cat === catFilter : true;
 
-        if (!(matchesProb && matchesForm && matchesCat)) return null;
+        const matchesForm = formFilter
+          ? rem.formulationType.toLowerCase().includes(formFilter.toLowerCase())
+          : true;
+
+        const matchesEvidence = evidenceFilter
+          ? rem.evidenceLevel === evidenceFilter
+          : true;
+
+        if (!(matchesCategory && matchesForm && matchesEvidence)) return null;
 
         return { ...rem, score };
-      }).filter((r) => r !== null);
+      }).filter(Boolean);
 
       results.sort((a, b) => b.score - a.score);
       setFilteredResults(results);
       setIsFiltering(false);
-    }, 400);
+    }, 250);
+
     return () => clearTimeout(delay);
-  }, [searchQuery, problemFilter, formFilter, catFilter]);
+  }, [searchQuery, categoryFilter, formFilter, evidenceFilter]);
 
   const clearFilters = () => {
     setSearchQuery("");
-    setProblemFilter("");
+    setCategoryFilter("");
     setFormFilter("");
-    setCatFilter("");
+    setEvidenceFilter("");
   };
 
   const handleOrder = (name, e) => {
@@ -224,19 +105,48 @@ export default function Remedies() {
   };
 
   const hasActiveFilters =
-    searchQuery || problemFilter || formFilter || catFilter;
+    searchQuery || categoryFilter || formFilter || evidenceFilter;
 
   return (
     <div className="container" style={{ paddingBottom: "80px" }}>
       <div className="page-header">
         <h1 className="page-title">Ayurvedic Remedies Directory</h1>
         <p className="page-subtitle">
-          Search and filter classical Ayurvedic formulations, single herbs, and
-          their clinical applications.
+          Evidence-aware catalogue of classical Ayurvedic formulations and single
+          herbs, verified against Ministry of AYUSH monographs and peer-reviewed
+          scientific literature.
         </p>
       </div>
 
-      {/* FILTER BAR */}
+      {/* EDUCATIONAL & HEALTHCARE DISCLAIMER */}
+      <div className="remedies-disclaimer-banner">
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="var(--green)"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{ flexShrink: 0, marginTop: "2px" }}
+        >
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="16" x2="12" y2="12" />
+          <line x1="12" y1="8" x2="12.01" y2="8" />
+        </svg>
+        <p>
+          <strong>Scientific & Traditional Context:</strong> Sattva provides
+          general wellness information based on classical Ayurvedic treatises and
+          available modern research. It is not a substitute for professional
+          medical diagnosis or treatment. Consult a qualified healthcare
+          professional before using herbal products, especially if you are
+          pregnant, breastfeeding, taking prescription medicines, or managing a
+          chronic medical condition.
+        </p>
+      </div>
+
+      {/* FILTER TOOLBAR */}
       <div className="filter-bar">
         <div className="filter-input-wrap" style={{ position: "relative" }}>
           <svg
@@ -255,7 +165,7 @@ export default function Remedies() {
           <input
             type="text"
             className="filter-input"
-            placeholder="Search medicines or problems"
+            placeholder="Search by herb, botanical name, or keyword..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -283,7 +193,7 @@ export default function Remedies() {
                     setSearchQuery("");
                   }}
                   style={{
-                    padding: "12px",
+                    padding: "10px 12px",
                     cursor: "pointer",
                     borderRadius: "8px",
                     transition: "all 0.2s",
@@ -299,70 +209,80 @@ export default function Remedies() {
                   }
                 >
                   <div>
-                    <h4 style={{ margin: 0, fontSize: "14px", color: "#111" }}>
+                    <h4 style={{ margin: 0, fontSize: "13.5px", color: "#111" }}>
                       {r.name}
                     </h4>
                     <p
                       style={{
-                        margin: "4px 0 0",
-                        fontSize: "12px",
+                        margin: "2px 0 0",
+                        fontSize: "11.5px",
+                        fontStyle: "italic",
                         color: "var(--muted)",
-                        whiteSpace: "nowrap",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
                       }}
                     >
-                      {r.use}
+                      {r.botanicalName}
                     </p>
                   </div>
                   <span
-                    style={{
-                      fontSize: "10px",
-                      color: "var(--primary)",
-                      background: "rgba(45,66,15,0.08)",
-                      padding: "2px 6px",
-                      borderRadius: "4px",
-                      fontWeight: 600,
-                    }}
+                    className={`badge-evidence ${
+                      EVIDENCE_BADGE_MAP[r.evidenceLevel]?.class || ""
+                    }`}
                   >
-                    {r.form}
+                    Level {r.evidenceLevel}
                   </span>
                 </div>
               ))}
             </div>
           )}
         </div>
+
+        {/* Wellness Domain Filter */}
         <select
           className="filter-select"
-          value={problemFilter}
-          onChange={(e) => setProblemFilter(e.target.value)}
+          value={categoryFilter}
+          onChange={(e) => setCategoryFilter(e.target.value)}
         >
-          <option value="">Problem Type (All)</option>
-          <option value="digestion">Digestion</option>
+          <option value="">Wellness Domain (All)</option>
           <option value="stress">Stress & Sleep</option>
-          <option value="immunity">Immunity</option>
-          <option value="skin">Skin</option>
-          <option value="hair">Hair</option>
-          <option value="energy">Energy</option>
+          <option value="digestion">Digestion & Gut</option>
+          <option value="cognition">Cognition & Focus</option>
+          <option value="immunity">Immunity & Resilience</option>
+          <option value="respiratory">Respiratory Health</option>
+          <option value="skin">Skin Wellness</option>
+          <option value="hair">Hair & Scalp</option>
+          <option value="cardiovascular">Cardiovascular</option>
+          <option value="metabolism">Metabolism</option>
+          <option value="women_wellness">Women\'s Wellness</option>
+          <option value="urinary">Urinary & Renal</option>
+          <option value="oral_health">Oral & Throat</option>
+          <option value="energy">Energy & Vitality</option>
         </select>
+
+        {/* Formulation Form Filter */}
         <select
           className="filter-select"
           value={formFilter}
           onChange={(e) => setFormFilter(e.target.value)}
         >
-          <option value="">Form (All)</option>
-          <option value="powder">Powder (Churna)</option>
-          <option value="tablet">Tablet (Vati)</option>
-          <option value="oil">Oil (Taila)</option>
+          <option value="">Formulation (All)</option>
+          <option value="churna">Churna (Powder)</option>
+          <option value="vati">Vati (Tablet / Pill)</option>
+          <option value="extract">Standardized Extract</option>
+          <option value="taila">Taila (Medicated Oil)</option>
+          <option value="resin">Shilajit Resin</option>
+          <option value="khanda">Khanda (Granules)</option>
         </select>
+
+        {/* Evidence Level Filter */}
         <select
           className="filter-select"
-          value={catFilter}
-          onChange={(e) => setCatFilter(e.target.value)}
+          value={evidenceFilter}
+          onChange={(e) => setEvidenceFilter(e.target.value)}
         >
-          <option value="">Popular / Recommended</option>
-          <option value="popular">Most Popular</option>
-          <option value="recommended">Clinical Recommended</option>
+          <option value="">Evidence Level (All)</option>
+          <option value="A">Level A (Strong Human Data)</option>
+          <option value="B">Level B (Promising Human Data)</option>
+          <option value="C">Level C (Classical / Preliminary)</option>
         </select>
 
         {hasActiveFilters && (
@@ -383,155 +303,165 @@ export default function Remedies() {
         )}
       </div>
 
-      {/* RESULT GRID OR EMPTY STATE */}
+      {/* PRODUCT GRID */}
       {isFiltering ? (
         <div className="grid-4">
-          {[1, 2, 3, 4].map((i) => (
+          {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
             <div
               key={i}
               className="skeleton-box skeleton-card"
-              style={{ height: "200px", marginBottom: "0" }}
+              style={{ height: "300px", marginBottom: "0" }}
             ></div>
           ))}
         </div>
       ) : filteredResults.length > 0 ? (
         <div className="grid-4">
           <AnimatePresence>
-            {filteredResults.map((rem, i) => (
-              <motion.div
-                key={rem.id}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ delay: i * 0.03, duration: 0.2 }}
-                className="card-generic"
-                style={{
-                  padding: "20px",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "16px",
-                  cursor: "pointer",
-                  position: "relative",
-                }}
-                onClick={() => setSelectedRemedy(rem)}
-                whileHover={{ y: -4, borderColor: "var(--primary)" }}
-              >
-                <div
+            {filteredResults.map((rem, i) => {
+              const badgeInfo = EVIDENCE_BADGE_MAP[rem.evidenceLevel] || {
+                label: `Level ${rem.evidenceLevel}`,
+                class: "badge-evidence-b",
+              };
+
+              return (
+                <motion.div
+                  key={rem.id}
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ delay: i * 0.02, duration: 0.2 }}
+                  className="card-generic"
                   style={{
+                    padding: "20px",
                     display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "flex-start",
+                    flexDirection: "column",
+                    gap: "12px",
+                    cursor: "pointer",
+                    position: "relative",
                   }}
+                  onClick={() => setSelectedRemedy(rem)}
+                  whileHover={{ y: -4, borderColor: "var(--primary)" }}
                 >
-                  <div
-                    style={{
-                      padding: "12px",
-                      background: "var(--surface-2)",
-                      borderRadius: "10px",
-                      color: "var(--primary)",
-                    }}
-                  >
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
+                  {/* Card Header & Evidence Badge */}
+                  <div className="remedy-card-header">
+                    <span className={`badge-evidence ${badgeInfo.class}`}>
+                      {badgeInfo.label}
+                    </span>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "4px",
+                        flexWrap: "wrap",
+                        justifyContent: "flex-end",
+                      }}
                     >
-                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                    </svg>
+                      {rem.categoryTags.slice(0, 2).map((tag) => (
+                        <span
+                          key={tag}
+                          style={{
+                            background: "rgba(45,66,15,0.06)",
+                            color: "var(--primary)",
+                            padding: "3px 7px",
+                            borderRadius: "5px",
+                            fontSize: "10px",
+                            fontWeight: 700,
+                            textTransform: "capitalize",
+                          }}
+                        >
+                          {tag.replace("_", " ")}
+                        </span>
+                      ))}
+                    </div>
                   </div>
+
+                  {/* Title & Botanical Name */}
+                  <div>
+                    <h3
+                      style={{
+                        margin: "4px 0 2px",
+                        fontSize: "16px",
+                        fontWeight: 750,
+                        color: "#17241e",
+                      }}
+                    >
+                      {rem.name}
+                    </h3>
+                    <p className="remedy-botanical-name">{rem.botanicalName}</p>
+                  </div>
+
+                  {/* 5-7 Line Structured Concise Summary */}
+                  <ul className="remedy-bullet-list">
+                    <li>
+                      <strong>Ayurvedic Role:</strong> {rem.traditionalUses[0]}
+                    </li>
+                    <li>
+                      <strong>Studied Support:</strong>{" "}
+                      {rem.potentialWellnessSupport[0]}
+                    </li>
+                    <li className="safety-bullet">
+                      <strong>Caution:</strong> {rem.safetyPrecautions}
+                    </li>
+                  </ul>
+
+                  {/* Verified Source Indicator */}
+                  <div style={{ marginTop: "auto" }}>
+                    <div className="remedy-source-count">
+                      <svg
+                        width="13"
+                        height="13"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.2"
+                      >
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                      </svg>
+                      {rem.sources.length} Verified Sources (AYUSH / PubMed)
+                    </div>
+                  </div>
+
+                  {/* Action Buttons */}
                   <div
                     style={{
-                      display: "flex",
-                      gap: "6px",
-                      flexWrap: "wrap",
-                      justifyContent: "flex-end",
-                      flex: 1,
+                      display: "grid",
+                      gridTemplateColumns: "1fr 1fr",
+                      gap: "8px",
+                      marginTop: "6px",
                     }}
                   >
-                    {rem.keywords.map((kw) => (
-                      <span
-                        key={kw}
-                        style={{
-                          background: "rgba(45,66,15,0.08)",
-                          color: "var(--primary)",
-                          padding: "4px 8px",
-                          borderRadius: "6px",
-                          fontSize: "10px",
-                          fontWeight: 700,
-                        }}
-                      >
-                        {kw}
-                      </span>
-                    ))}
+                    <button
+                      style={{
+                        padding: "8px",
+                        background: "transparent",
+                        border: "1px solid var(--border)",
+                        borderRadius: "6px",
+                        fontSize: "12px",
+                        fontWeight: 600,
+                        color: "var(--text)",
+                        cursor: "pointer",
+                      }}
+                    >
+                      View Details
+                    </button>
+                    <button
+                      onClick={(e) => handleOrder(rem.name, e)}
+                      style={{
+                        padding: "8px",
+                        background: "var(--primary)",
+                        border: "1px solid var(--primary)",
+                        borderRadius: "6px",
+                        fontSize: "12px",
+                        fontWeight: 600,
+                        color: "white",
+                        cursor: "pointer",
+                      }}
+                    >
+                      Order Now
+                    </button>
                   </div>
-                </div>
-
-                <div>
-                  <h3
-                    style={{
-                      margin: "0 0 4px",
-                      fontSize: "16px",
-                      color: "#111",
-                    }}
-                  >
-                    {rem.name}
-                  </h3>
-                  <p
-                    style={{
-                      margin: 0,
-                      fontSize: "13px",
-                      color: "var(--muted)",
-                      lineHeight: 1.5,
-                      minHeight: "40px",
-                    }}
-                  >
-                    {rem.use}
-                  </p>
-                </div>
-
-                <div
-                  style={{
-                    marginTop: "auto",
-                    display: "grid",
-                    gridTemplateColumns: "1fr 1fr",
-                    gap: "8px",
-                  }}
-                >
-                  <button
-                    style={{
-                      padding: "8px",
-                      background: "transparent",
-                      border: "1px solid var(--border)",
-                      borderRadius: "6px",
-                      fontSize: "12px",
-                      fontWeight: 600,
-                      color: "var(--text)",
-                      cursor: "pointer",
-                    }}
-                  >
-                    View Details
-                  </button>
-                  <button
-                    onClick={(e) => handleOrder(rem.name, e)}
-                    style={{
-                      padding: "8px",
-                      background: "var(--primary)",
-                      border: "1px solid var(--primary)",
-                      borderRadius: "6px",
-                      fontSize: "12px",
-                      fontWeight: 600,
-                      color: "white",
-                      cursor: "pointer",
-                    }}
-                  >
-                    Order Now
-                  </button>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              );
+            })}
           </AnimatePresence>
         </div>
       ) : (
@@ -567,13 +497,12 @@ export default function Remedies() {
               strokeLinecap="round"
               strokeLinejoin="round"
             >
-              <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
-              <path d="M12 16v-4" />
-              <path d="M12 8h.01" />
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
           </div>
           <h3 style={{ margin: "0 0 8px", fontSize: "18px", color: "#111" }}>
-            No remedies found
+            No verified remedies match criteria
           </h3>
           <p
             style={{
@@ -582,7 +511,8 @@ export default function Remedies() {
               fontSize: "14px",
             }}
           >
-            We couldn't find any formulation matching your parameters.
+            Try adjusting your search query, wellness domain, or evidence level
+            filter.
           </p>
           <button
             onClick={clearFilters}
@@ -598,7 +528,7 @@ export default function Remedies() {
         </motion.div>
       )}
 
-      {/* EXPLANATION MODAL (Strict Layout) */}
+      {/* DETAIL MODAL (Auditable & Academically Structured) */}
       <AnimatePresence>
         {selectedRemedy && (
           <motion.div
@@ -629,15 +559,16 @@ export default function Remedies() {
               style={{
                 background: "white",
                 width: "100%",
-                maxWidth: "540px",
+                maxWidth: "680px",
                 borderRadius: "16px",
                 padding: "32px",
                 position: "relative",
                 boxShadow: "var(--shadow-md)",
-                maxHeight: "90vh",
+                maxHeight: "88vh",
                 overflowY: "auto",
               }}
             >
+              {/* Close Button */}
               <button
                 onClick={() => setSelectedRemedy(null)}
                 style={{
@@ -667,191 +598,313 @@ export default function Remedies() {
                 </svg>
               </button>
 
-              <h2
-                style={{ margin: "0 0 4px", fontSize: "24px", color: "#111" }}
-              >
-                {selectedRemedy.name}
-              </h2>
-              <div
-                style={{
-                  display: "flex",
-                  gap: "8px",
-                  flexWrap: "wrap",
-                  marginBottom: "24px",
-                }}
-              >
-                {selectedRemedy.keywords.map((kw) => (
+              {/* Modal Header */}
+              <div style={{ marginBottom: "16px" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
+                    marginBottom: "6px",
+                  }}
+                >
                   <span
-                    key={kw}
+                    className={`badge-evidence ${
+                      EVIDENCE_BADGE_MAP[selectedRemedy.evidenceLevel]?.class ||
+                      ""
+                    }`}
+                  >
+                    {EVIDENCE_BADGE_MAP[selectedRemedy.evidenceLevel]?.label}
+                  </span>
+                  <span
                     style={{
-                      display: "inline-block",
-                      background: "rgba(45,66,15,0.08)",
-                      color: "var(--primary)",
-                      padding: "4px 10px",
-                      borderRadius: "6px",
-                      fontSize: "12px",
-                      fontWeight: 700,
+                      fontSize: "11px",
+                      color: "var(--muted)",
+                      fontWeight: 600,
                     }}
                   >
-                    {kw}
+                    Part: {selectedRemedy.partUsed}
                   </span>
-                ))}
+                </div>
+                <h2
+                  style={{
+                    margin: "0 0 4px",
+                    fontSize: "24px",
+                    color: "#17241e",
+                    fontWeight: 800,
+                  }}
+                >
+                  {selectedRemedy.name}
+                </h2>
+                <p
+                  style={{
+                    margin: "0 0 8px",
+                    fontStyle: "italic",
+                    fontSize: "13.5px",
+                    color: "#546e60",
+                  }}
+                >
+                  {selectedRemedy.botanicalName} ({selectedRemedy.commonName})
+                </p>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "6px",
+                    flexWrap: "wrap",
+                    marginTop: "6px",
+                  }}
+                >
+                  {selectedRemedy.categoryTags.map((tag) => (
+                    <span
+                      key={tag}
+                      style={{
+                        background: "rgba(45,66,15,0.08)",
+                        color: "var(--primary)",
+                        padding: "4px 9px",
+                        borderRadius: "6px",
+                        fontSize: "11px",
+                        fontWeight: 700,
+                        textTransform: "capitalize",
+                      }}
+                    >
+                      {tag.replace("_", " ")}
+                    </span>
+                  ))}
+                </div>
               </div>
 
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "24px",
-                }}
-              >
-                <div>
-                  <h4
-                    style={{
-                      margin: "0 0 6px",
-                      fontSize: "12px",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.05em",
-                      color: "var(--muted)",
-                    }}
-                  >
-                    Clinical Uses
+              {/* Modal Content Sections */}
+              <div className="remedy-modal-grid">
+                {/* 1. Overview */}
+                <div className="remedy-modal-section">
+                  <h4>
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <line x1="12" y1="16" x2="12" y2="12" />
+                      <line x1="12" y1="8" x2="12.01" y2="8" />
+                    </svg>
+                    Overview & Formulation
                   </h4>
-                  <p
-                    style={{
-                      margin: 0,
-                      fontSize: "14px",
-                      color: "var(--text)",
-                    }}
-                  >
-                    {selectedRemedy.use}
-                  </p>
-                </div>
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "1fr 1fr",
-                    gap: "16px",
-                  }}
-                >
-                  <div
-                    style={{
-                      background: "var(--surface-2)",
-                      padding: "16px",
-                      borderRadius: "8px",
-                    }}
-                  >
-                    <h4
-                      style={{
-                        margin: "0 0 6px",
-                        fontSize: "12px",
-                        textTransform: "uppercase",
-                        letterSpacing: "0.05em",
-                        color: "var(--muted)",
-                      }}
-                    >
-                      How to take
-                    </h4>
-                    <p
-                      style={{
-                        margin: 0,
-                        fontSize: "14px",
-                        color: "var(--text)",
-                        fontWeight: 500,
-                      }}
-                    >
-                      {selectedRemedy.dosage}
-                    </p>
-                  </div>
-                  <div
-                    style={{
-                      background: "var(--surface-2)",
-                      padding: "16px",
-                      borderRadius: "8px",
-                    }}
-                  >
-                    <h4
-                      style={{
-                        margin: "0 0 6px",
-                        fontSize: "12px",
-                        textTransform: "uppercase",
-                        letterSpacing: "0.05em",
-                        color: "var(--muted)",
-                      }}
-                    >
-                      When to take
-                    </h4>
-                    <p
-                      style={{
-                        margin: 0,
-                        fontSize: "14px",
-                        color: "var(--text)",
-                        fontWeight: 500,
-                      }}
-                    >
-                      {selectedRemedy.time}
-                    </p>
-                  </div>
-                </div>
-                <div>
-                  <h4
-                    style={{
-                      margin: "0 0 6px",
-                      fontSize: "12px",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.05em",
-                      color: "var(--muted)",
-                    }}
-                  >
-                    Preparation Method
-                  </h4>
-                  <p
-                    style={{
-                      margin: 0,
-                      fontSize: "14px",
-                      color: "var(--text)",
-                    }}
-                  >
-                    {selectedRemedy.prep}
-                  </p>
-                </div>
-                <div
-                  style={{
-                    padding: "16px",
-                    background: "rgba(231,76,60,0.05)",
-                    borderRadius: "8px",
-                    borderLeft: "3px solid #e74c3c",
-                  }}
-                >
-                  <h4
-                    style={{
-                      margin: "0 0 6px",
-                      fontSize: "12px",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.05em",
-                      color: "#e74c3c",
-                    }}
-                  >
-                    Precautions
-                  </h4>
-                  <p
-                    style={{
-                      margin: 0,
-                      fontSize: "14px",
-                      color: "var(--text)",
-                    }}
-                  >
-                    {selectedRemedy.precaution}
+                  <p>{selectedRemedy.whatItIs}</p>
+                  <p style={{ marginTop: "8px", fontSize: "12.5px", color: "#617269" }}>
+                    <strong>Formulation Type:</strong> {selectedRemedy.formulationType}
                   </p>
                 </div>
 
+                {/* 2. Traditional Ayurvedic Use */}
+                <div className="remedy-modal-section">
+                  <h4>
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                    >
+                      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                    </svg>
+                    Classical Ayurvedic Context
+                  </h4>
+                  <ul>
+                    {selectedRemedy.traditionalUses.map((use, idx) => (
+                      <li key={idx}>{use}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* 3. Modern Scientific Evidence */}
+                <div className="remedy-modal-section">
+                  <h4>
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                    >
+                      <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                    </svg>
+                    Peer-Reviewed Scientific Literature
+                  </h4>
+                  <p>{selectedRemedy.scientificEvidenceSummary}</p>
+                  <div style={{ marginTop: "10px" }}>
+                    <strong style={{ fontSize: "12px", color: "var(--green-deep)" }}>
+                      Potential Wellness Support:
+                    </strong>
+                    <ul style={{ marginTop: "4px" }}>
+                      {selectedRemedy.potentialWellnessSupport.map((pt, idx) => (
+                        <li key={idx}>{pt}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                {/* 4. Key Bioactive Constituents */}
+                <div className="remedy-modal-section">
+                  <h4>
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                    >
+                      <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                      <polyline points="2 17 12 22 22 17" />
+                      <polyline points="2 12 12 17 22 12" />
+                    </svg>
+                    Well-Established Bioactive Constituents
+                  </h4>
+                  <p style={{ fontSize: "13px" }}>
+                    {selectedRemedy.keyConstituents}
+                  </p>
+                </div>
+
+                {/* 5. Safety, Precautions & Contraindications */}
+                <div
+                  className="remedy-modal-section"
+                  style={{
+                    background: "rgba(231,76,60,0.04)",
+                    borderColor: "#f5c6cb",
+                  }}
+                >
+                  <h4 style={{ color: "#c0392b" }}>
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#c0392b"
+                      strokeWidth="2.2"
+                    >
+                      <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                      <line x1="12" y1="9" x2="12" y2="13" />
+                      <line x1="12" y1="17" x2="12.01" y2="17" />
+                    </svg>
+                    Safety, Interactions & Contraindications
+                  </h4>
+                  <p style={{ color: "#78281f", marginBottom: "8px" }}>
+                    <strong>Precautions:</strong> {selectedRemedy.safetyPrecautions}
+                  </p>
+                  <p style={{ color: "#78281f" }}>
+                    <strong>Who should avoid or consult a doctor:</strong>{" "}
+                    {selectedRemedy.whoShouldAvoid}
+                  </p>
+                </div>
+
+                {/* 6. Dosage Guidance */}
+                <div className="remedy-modal-section">
+                  <h4>
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                    Dosage & Administration Note
+                  </h4>
+                  <p style={{ fontSize: "13px" }}>
+                    {selectedRemedy.dosageGuidance}
+                  </p>
+                </div>
+
+                {/* 7. Verified Sources & Direct Outbound Citations */}
+                <div className="remedy-modal-section">
+                  <h4>
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                    >
+                      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                    </svg>
+                    Verified Primary Sources & Citations
+                  </h4>
+                  <p style={{ fontSize: "12px", color: "var(--muted)", marginBottom: "8px" }}>
+                    Direct authentic links to Government, AYUSH, WHO, and peer-reviewed journals:
+                  </p>
+                  {selectedRemedy.sources.map((src, idx) => (
+                    <a
+                      key={idx}
+                      href={src.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="remedy-source-link"
+                    >
+                      <div>
+                        <span>{src.title}</span>
+                        <div
+                          style={{
+                            fontSize: "11px",
+                            color: "var(--muted)",
+                            marginTop: "2px",
+                          }}
+                        >
+                          Publisher: {src.publisher}
+                        </div>
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "6px",
+                        }}
+                      >
+                        <span className="remedy-source-type">{src.type}</span>
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                        >
+                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                          <polyline points="15 3 21 3 21 9" />
+                          <line x1="10" y1="14" x2="21" y2="3" />
+                        </svg>
+                      </div>
+                    </a>
+                  ))}
+                  <div
+                    style={{
+                      fontSize: "10.5px",
+                      color: "#7e8f85",
+                      marginTop: "10px",
+                      textAlign: "right",
+                    }}
+                  >
+                    Last Verified: {selectedRemedy.lastVerifiedDate}
+                  </div>
+                </div>
+
+                {/* Bottom Action */}
                 <button
                   onClick={(e) => {
                     handleOrder(selectedRemedy.name, e);
                     setSelectedRemedy(null);
                   }}
                   className="btn-product primary"
-                  style={{ width: "100%", padding: "14px", marginTop: "8px" }}
+                  style={{ width: "100%", padding: "14px", marginTop: "4px" }}
                 >
                   Order Now (Simulated)
                 </button>
