@@ -17,6 +17,14 @@ import DoctorDashboard from "./pages/DoctorDashboard";
 import SymptomHistory from "./pages/SymptomHistory";
 import Insurance from "./pages/Insurance";
 import Login from "./pages/Login";
+import SourcesEvidence from "./pages/SourcesEvidence";
+import SafetyDisclaimer from "./pages/SafetyDisclaimer";
+import FAQs from "./pages/FAQs";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import Terms from "./pages/Terms";
+import DataSafety from "./pages/DataSafety";
+import Contact from "./pages/Contact";
+import ScrollToTop from "./components/ScrollToTop";
 import AppShell from "./components/AppShell";
 
 const ProductRoute = ({ children }) => <AppShell>{children}</AppShell>;
@@ -24,6 +32,7 @@ const ProductRoute = ({ children }) => <AppShell>{children}</AppShell>;
 export default function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Navbar />
       <main className="main-layout">
         <Routes>
@@ -42,6 +51,13 @@ export default function App() {
           <Route path="/how-it-works" element={<HowItWorks />} />
           <Route path="/about" element={<About />} />
           <Route path="/vision" element={<Vision />} />
+          <Route path="/sources-evidence" element={<SourcesEvidence />} />
+          <Route path="/safety-disclaimer" element={<SafetyDisclaimer />} />
+          <Route path="/faqs" element={<FAQs />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/data-safety" element={<DataSafety />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </main>
       <Footer />

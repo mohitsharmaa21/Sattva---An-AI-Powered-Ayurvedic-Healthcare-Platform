@@ -71,7 +71,7 @@ export default function Remedies() {
 
   const handleOrder = (name, e) => {
     e.stopPropagation();
-    setToast(`Added ${name} to your Order Cart`);
+    setToast(`Saved ${name} to your Wellness Exploration List`);
     setTimeout(() => setToast(null), 3000);
   };
 
@@ -407,7 +407,7 @@ export default function Remedies() {
                         cursor: "pointer",
                       }}
                     >
-                      Order Now
+                      Explore Product
                     </button>
                   </div>
                 </motion.div>
@@ -849,7 +849,7 @@ export default function Remedies() {
                   className="btn-product primary"
                   style={{ width: "100%", padding: "14px", marginTop: "4px" }}
                 >
-                  Order Now (Simulated)
+                  Explore Formulation
                 </button>
               </div>
             </motion.div>

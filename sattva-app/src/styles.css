@@ -1430,3 +1430,169 @@ button, input, select, textarea { font: inherit; }
   padding: 2px 6px;
   border-radius: 4px;
 }
+
+/* ===================================================
+   NEW SATTVA FOOTER STYLING
+   =================================================== */
+.footer-nav-link {
+  color: var(--ink);
+  font-size: 13.5px;
+  text-decoration: none;
+  transition: color 0.18s ease, transform 0.18s ease;
+  display: inline-block;
+}
+.footer-nav-link:hover {
+  color: var(--green);
+  transform: translateX(2px);
+}
+@media (max-width: 900px) {
+  .footer-grid-responsive {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 32px !important;
+  }
+}
+@media (max-width: 600px) {
+  .footer-grid-responsive {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+}
+
+/* ===================================================
+   DARK THEME SYSTEM
+   =================================================== */
+html.dark-theme,
+body.dark-theme {
+  --bg: #0d1510;
+  --surface: #142019;
+  --surface-2: #1b2d23;
+  --primary: #52b788;
+  --primary-hover: #74c69d;
+  --text: #e1ede6;
+  --muted: #8ea396;
+  --border: rgba(116, 198, 157, 0.16);
+  --line: #1e3328;
+  --ink: #eff8f3;
+  --green-deep: #74c69d;
+  --green: #52b788;
+  --soft-green: #182e22;
+  --cream: #122018;
+  --sand: #16261d;
+  background-color: #0d1510;
+  color: #e1ede6;
+}
+
+.dark-theme .app-topbar {
+  background: rgba(13, 21, 16, 0.9) !important;
+  border-bottom-color: var(--line) !important;
+}
+
+.dark-theme .app-sidebar {
+  background: #090f0b !important;
+  border-right-color: var(--line) !important;
+}
+
+.dark-theme .card-generic,
+.dark-theme .metric-card,
+.dark-theme .risk-card,
+.dark-theme .activity-panel,
+.dark-theme .care-panel,
+.dark-theme .timeline-card,
+.dark-theme .product-layout,
+.dark-theme .remedy-card,
+.dark-theme .footer-sattva {
+  background: var(--surface) !important;
+  border-color: var(--border) !important;
+  color: var(--text) !important;
+}
+
+.dark-theme .navbar-pill {
+  background: rgba(20, 32, 25, 0.88) !important;
+  border-color: var(--border) !important;
+}
+
+.dark-theme .navbar-logo {
+  color: var(--primary) !important;
+}
+
+.dark-theme .nav-links-desktop a {
+  color: var(--muted) !important;
+}
+.dark-theme .nav-links-desktop a:hover {
+  color: var(--primary) !important;
+}
+
+.dark-theme .icon-button {
+  color: #8ea396 !important;
+}
+.dark-theme .icon-button:hover {
+  background: #1b2d23 !important;
+  color: #52b788 !important;
+}
+
+.dark-theme .page-title,
+.dark-theme .hero-product-title,
+.dark-theme h1,
+.dark-theme h2,
+.dark-theme h3,
+.dark-theme h4 {
+  color: #eff8f3 !important;
+}
+
+.dark-theme .search-container,
+.dark-theme .symptom-input,
+.dark-theme .filter-select,
+.dark-theme input,
+.dark-theme textarea {
+  background: var(--surface-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+
+.dark-theme .user-chip {
+  color: var(--text) !important;
+}
+.dark-theme .user-chip span {
+  background: #1b3829 !important;
+  color: #74c69d !important;
+}
+
+.dark-theme .remedy-source-link {
+  background: var(--surface-2) !important;
+  border-color: var(--border) !important;
+  color: var(--text) !important;
+}
+
+.dark-theme .remedy-source-type {
+  background: #1e382b !important;
+  color: #74c69d !important;
+}
+
+.dark-theme .ai-option-btn {
+  background: var(--surface) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.dark-theme .ai-option-btn:hover {
+  background: var(--surface-2) !important;
+  border-color: var(--primary) !important;
+}
+.dark-theme .ai-option-btn.selected {
+  background: var(--primary) !important;
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 16px rgba(82, 183, 136, 0.25);
+}
+.dark-theme .ai-option-btn.selected span {
+  color: #0d1510 !important;
+  font-weight: 750 !important;
+}
+.dark-theme .ai-option-btn.selected svg {
+  stroke: #0d1510 !important;
+}
+
+.dark-theme .btn-product.secondary {
+  background: var(--surface-2) !important;
+  color: var(--primary) !important;
+  border-color: var(--border) !important;
+}
+

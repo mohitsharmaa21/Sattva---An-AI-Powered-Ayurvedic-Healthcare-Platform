@@ -228,7 +228,7 @@ export default function AI() {
                  transition={{ duration: 0.2 }}
                  style={{ flex: 1, display: "flex", flexDirection: "column" }}
               >
-                 <h2 style={{ fontSize: "24px", color: "#111", margin: "0 0 32px" }}>{currentQ.title}</h2>
+                 <h2 style={{ fontSize: "24px", color: "var(--ink)", margin: "0 0 32px" }}>{currentQ.title}</h2>
                  <div style={{ display: "flex", flexDirection: "column", gap: "12px", flex: 1 }}>
                    {currentQ.options.map(opt => {
                      const isSelected = answers[currentQ.key] === opt || (answers[currentQ.key] !== "" && opt === "Other" && !currentQ.options.includes(answers[currentQ.key]));
@@ -238,12 +238,12 @@ export default function AI() {
                          onClick={() => handleOptionSelect(currentQ.key, opt)}
                          style={{
                            padding: "16px 20px",
-                           background: isSelected ? "var(--primary)" : "white",
+                           background: isSelected ? "var(--primary)" : "var(--surface)",
                            color: isSelected ? "white" : "var(--text)",
                            border: `1px solid ${isSelected ? "var(--primary)" : "var(--border)"}`,
                            borderRadius: "12px",
                            fontSize: "15px",
-                           fontWeight: 500,
+                           fontWeight: 600,
                            cursor: "pointer",
                            transition: "all 0.2s",
                            textAlign: "left",
@@ -252,7 +252,7 @@ export default function AI() {
                            alignItems: "center"
                          }}
                        >
-                         {opt}
+                         <span style={{ color: isSelected ? "white" : "var(--text)" }}>{opt}</span>
                          {isSelected && (
                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
                          )}
@@ -271,6 +271,8 @@ export default function AI() {
                          style={{
                            width: "100%",
                            padding: "14px 20px",
+                           background: "var(--surface-2)",
+                           color: "var(--text)",
                            border: "1px solid var(--primary)",
                            borderRadius: "12px",
                            fontSize: "15px",
@@ -290,10 +292,10 @@ export default function AI() {
                  transition={{ duration: 0.2 }}
                  style={{ flex: 1, display: "flex", flexDirection: "column", gap: "24px" }}
               >
-                 <h2 style={{ fontSize: "24px", color: "#111", margin: "0" }}>Final Step: Context & Reports</h2>
+                 <h2 style={{ fontSize: "24px", color: "var(--ink)", margin: "0" }}>Final Step: Context & Reports</h2>
                  
                  <div>
-                   <label style={{ fontSize: "14px", fontWeight: 600, color: "#111", display: "block", marginBottom: "12px" }}>
+                   <label style={{ fontSize: "14px", fontWeight: 600, color: "var(--text)", display: "block", marginBottom: "12px" }}>
                      Any other symptoms or information? (Optional)
                    </label>
                    <textarea
@@ -303,6 +305,8 @@ export default function AI() {
                      style={{
                        width: "100%",
                        height: "100px",
+                       background: "var(--surface-2)",
+                       color: "var(--text)",
                        border: "1px solid var(--border)",
                        borderRadius: "8px",
                        padding: "16px",
@@ -318,7 +322,7 @@ export default function AI() {
                  </div>
 
                  <div>
-                   <label style={{ fontSize: "14px", fontWeight: 600, color: "#111", display: "flex", justifyContent: "space-between", marginBottom: "12px" }}>
+                   <label style={{ fontSize: "14px", fontWeight: 600, color: "var(--text)", display: "flex", justifyContent: "space-between", marginBottom: "12px" }}>
                      Attach Medical Reports (Optional)
                    </label>
                    <input type="file" multiple accept="image/*" ref={inputRef} onChange={handleUpload} style={{ display: "none" }} />
@@ -326,7 +330,7 @@ export default function AI() {
                    <button 
                      onClick={() => inputRef.current?.click()}
                      style={{ width: "100%", padding: "16px", border: "1px dashed var(--border)", borderRadius: "8px", background: "var(--surface-2)", color: "var(--primary)", fontSize: "14px", fontWeight: 600, cursor: "pointer", display: "flex", flexDirection: "column", alignItems: "center", gap: "8px", transition: "all 0.2s" }}
-                     onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--primary)"; e.currentTarget.style.background = "rgba(45,66,15,0.02)"; }}
+                     onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--primary)"; e.currentTarget.style.background = "rgba(45,66,15,0.08)"; }}
                      onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--border)"; e.currentTarget.style.background = "var(--surface-2)"; }}
                    >
                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
@@ -336,7 +340,7 @@ export default function AI() {
                    {files.length > 0 && (
                      <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginTop: "16px" }}>
                        {files.map((f, i) => (
-                         <div key={i} style={{ fontSize: "12px", background: "white", border: "1px solid var(--border)", padding: "4px 10px", borderRadius: "16px", color: "var(--muted)", display: "flex", alignItems: "center", gap: "6px", boxShadow: "0 2px 4px rgba(0,0,0,0.02)" }}>
+                         <div key={i} style={{ fontSize: "12px", background: "var(--surface-2)", border: "1px solid var(--border)", padding: "4px 10px", borderRadius: "16px", color: "var(--muted)", display: "flex", alignItems: "center", gap: "6px", boxShadow: "0 2px 4px rgba(0,0,0,0.02)" }}>
                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
                            {f.name}
                          </div>
@@ -431,7 +435,7 @@ export default function AI() {
               }}
             >
               <div>
-                <h2 style={{ margin: "0 0 4px", fontSize: "24px", color: "#111" }}>
+                <h2 style={{ margin: "0 0 4px", fontSize: "24px", color: "var(--ink)" }}>
                   Clinical Triage Report
                 </h2>
                 <span style={{ fontSize: "12px", color: "var(--muted)", fontWeight: 600 }}>Analyzed via Multi-modal Neural Engine</span>
@@ -466,7 +470,7 @@ export default function AI() {
                   </div>
                   <div style={{ flex: 1 }}>
                     <h4
-                      style={{ margin: "0 0 8px", fontSize: "16px", color: "#111" }}
+                      style={{ margin: "0 0 8px", fontSize: "16px", color: "var(--ink)" }}
                     >
                       {report.riskLabel}
                     </h4>
@@ -556,7 +560,7 @@ export default function AI() {
                   <Link
                     to="/ayurveda"
                     style={{
-                      background: "white",
+                      background: "var(--surface)",
                       color: "var(--primary)",
                       border: "1px solid var(--primary)",
                       padding: "12px 24px",
@@ -578,9 +582,9 @@ export default function AI() {
                   <div style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "16px", padding: "24px", overflow: "hidden" }}>
                     <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                      <h3 style={{ margin: 0, fontSize: "16px", color: "#111" }}>Extracted Report Data</h3>
+                      <h3 style={{ margin: 0, fontSize: "16px", color: "var(--ink)" }}>Extracted Report Data</h3>
                     </div>
-                    <div style={{ background: "white", padding: "16px", borderRadius: "10px", border: "1px solid rgba(45,66,15,0.08)", overflow: "hidden" }}>
+                    <div style={{ background: "var(--surface-2)", padding: "16px", borderRadius: "10px", border: "1px solid var(--border)", overflow: "hidden" }}>
                       <ul
                         style={{
                           paddingLeft: "20px",
@@ -605,8 +609,8 @@ export default function AI() {
                                     const title = k.replace(/([A-Z])/g, " $1").replace(/^./, s => s.toUpperCase());
                                     return (
                                       <div key={k} style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
-                                        <span style={{ fontSize: "10px", fontWeight: 700, color: "rgba(45,66,15,0.5)", textTransform: "uppercase", letterSpacing: "0.05em" }}>{title}</span>
-                                        <span style={{ fontSize: "13px", color: "#111", fontWeight: 500 }}>{String(v)}</span>
+                                        <span style={{ fontSize: "10px", fontWeight: 700, color: "var(--muted)", textTransform: "uppercase", letterSpacing: "0.05em" }}>{title}</span>
+                                        <span style={{ fontSize: "13px", color: "var(--text)", fontWeight: 500 }}>{String(v)}</span>
                                       </div>
                                     );
                                   })}

@@ -2,6 +2,7 @@ import { NavLink, Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import sattvaLogo from "../assets/sattva-logo.png";
 import { getActiveUser, getUserInitials } from "../utils/user";
+import { useTheme } from "../utils/theme";
 
 const Icon = ({ name, size = 18 }) => {
   const paths = {
@@ -15,6 +16,8 @@ const Icon = ({ name, size = 18 }) => {
     settings: <><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.2 2.2-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5v.2h-3.2v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1-2.2-2.2.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H5v-3.2h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1 2.2-2.2.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.5V3.5h3.2v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1 2.2 2.2-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.5 1h.2V13h-.2a1.7 1.7 0 0 0-1.5 1Z"/></>,
     menu: <path d="M4 7h16M4 12h16M4 17h16"/>,
     bell: <><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></>,
+    sun: <><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></>,
+    moon: <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>,
   };
   return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>;
 };
@@ -25,6 +28,7 @@ const items = [
 
 export default function AppShell({ children }) {
   const [open, setOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
   const location = useLocation();
   const doctorMode = location.pathname === "/doctor-dashboard";
   const activeUser = getActiveUser();
@@ -36,6 +40,6 @@ export default function AppShell({ children }) {
       <nav>{doctorMode ? <NavLink to="/doctor-dashboard" className="side-link"><Icon name="users"/>Doctor workspace</NavLink> : items.map(([to, label, icon]) => <NavLink key={to} to={to} onClick={() => setOpen(false)} className="side-link"><Icon name={icon}/><span>{label}</span></NavLink>)}</nav>
       <div className="sidebar-bottom"><NavLink to="/login" className="side-link"><Icon name="settings"/><span>Account & settings</span></NavLink><p>Demo patient data · Not medical advice</p></div>
     </aside>
-    <div className="app-frame"><header className="app-topbar"><button className="icon-button menu-trigger" onClick={() => setOpen(!open)} aria-label="Toggle navigation"><Icon name="menu"/></button><div className="crumb">{doctorMode ? "Clinical workspace" : "Sattva health"}</div><div className="topbar-actions"><button className="icon-button" aria-label="Notifications"><Icon name="bell"/></button><Link to="/login" className="user-chip"><span>{initials}</span><b>{activeUser}</b></Link></div></header><main className="app-content">{children}</main></div>
+    <div className="app-frame"><header className="app-topbar"><button className="icon-button menu-trigger" onClick={() => setOpen(!open)} aria-label="Toggle navigation"><Icon name="menu"/></button><div className="crumb">{doctorMode ? "Clinical workspace" : "Sattva health"}</div><div className="topbar-actions"><button className="icon-button theme-toggle-btn" onClick={toggleTheme} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"} title={theme === "dark" ? "Light appearance" : "Dark appearance"}><Icon name={theme === "dark" ? "sun" : "moon"}/></button><button className="icon-button" aria-label="Notifications" title="Notifications"><Icon name="bell"/></button><Link to="/login" className="user-chip"><span>{initials}</span><b>{activeUser}</b></Link></div></header><main className="app-content">{children}</main></div>
   </div>;
 }

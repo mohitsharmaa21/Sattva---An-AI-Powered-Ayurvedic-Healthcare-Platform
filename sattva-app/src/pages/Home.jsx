@@ -1,9 +1,11 @@
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
+import { getISTDetails } from "../utils/istTime";
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState(null);
   const carouselRef = useRef(null);
+  const istInfo = getISTDetails();
 
   const toggleFaq = (index) => {
     setOpenFaq(openFaq === index ? null : index);
@@ -71,6 +73,24 @@ export default function Home() {
       {/* 1. PRODUCT HERO (ACTION-FIRST) */}
       <section className="product-hero">
         <div className="container center-hero">
+          <div
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              background: "rgba(45,66,15,0.06)",
+              color: "var(--primary)",
+              padding: "6px 14px",
+              borderRadius: "20px",
+              fontSize: "12.5px",
+              fontWeight: 700,
+              marginBottom: "16px",
+            }}
+          >
+            <span>✨ {istInfo.greeting}</span>
+            <span style={{ opacity: 0.5 }}>·</span>
+            <span>{istInfo.timeString}</span>
+          </div>
           <h1 className="hero-product-title">What are you feeling today?</h1>
 
           <div className="search-container">
