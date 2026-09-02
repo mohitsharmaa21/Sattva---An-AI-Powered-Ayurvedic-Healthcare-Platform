@@ -2,25 +2,6 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { REMEDIES } from "../data/remediesData";
 
-const EVIDENCE_BADGE_MAP = {
-  A: {
-    label: "Level A: Strong Human Evidence",
-    class: "badge-evidence-a",
-  },
-  B: {
-    label: "Level B: Promising Human Evidence",
-    class: "badge-evidence-b",
-  },
-  C: {
-    label: "Level C: Classical / Preliminary",
-    class: "badge-evidence-c",
-  },
-  D: {
-    label: "Level D: Insufficient Evidence",
-    class: "badge-evidence-d",
-  },
-};
-
 export default function Remedies() {
   const [selectedRemedy, setSelectedRemedy] = useState(null);
 
@@ -28,7 +9,6 @@ export default function Remedies() {
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("");
   const [formFilter, setFormFilter] = useState("");
-  const [evidenceFilter, setEvidenceFilter] = useState("");
 
   const [isFiltering, setIsFiltering] = useState(false);
   const [filteredResults, setFilteredResults] = useState(REMEDIES);
@@ -70,11 +50,7 @@ export default function Remedies() {
           ? rem.formulationType.toLowerCase().includes(formFilter.toLowerCase())
           : true;
 
-        const matchesEvidence = evidenceFilter
-          ? rem.evidenceLevel === evidenceFilter
-          : true;
-
-        if (!(matchesCategory && matchesForm && matchesEvidence)) return null;
+        if (!(matchesCategory && matchesForm)) return null;
 
         return { ...rem, score };
       }).filter(Boolean);
@@ -85,13 +61,12 @@ export default function Remedies() {
     }, 250);
 
     return () => clearTimeout(delay);
-  }, [searchQuery, categoryFilter, formFilter, evidenceFilter]);
+  }, [searchQuery, categoryFilter, formFilter]);
 
   const clearFilters = () => {
     setSearchQuery("");
     setCategoryFilter("");
     setFormFilter("");
-    setEvidenceFilter("");
   };
 
   const handleOrder = (name, e) => {
@@ -105,7 +80,7 @@ export default function Remedies() {
   };
 
   const hasActiveFilters =
-    searchQuery || categoryFilter || formFilter || evidenceFilter;
+    searchQuery || categoryFilter || formFilter;
 
   return (
     <div className="container" style={{ paddingBottom: "80px" }}>
@@ -223,13 +198,6 @@ export default function Remedies() {
                       {r.botanicalName}
                     </p>
                   </div>
-                  <span
-                    className={`badge-evidence ${
-                      EVIDENCE_BADGE_MAP[r.evidenceLevel]?.class || ""
-                    }`}
-                  >
-                    Level {r.evidenceLevel}
-                  </span>
                 </div>
               ))}
             </div>
@@ -274,18 +242,6 @@ export default function Remedies() {
           <option value="khanda">Khanda (Granules)</option>
         </select>
 
-        {/* Evidence Level Filter */}
-        <select
-          className="filter-select"
-          value={evidenceFilter}
-          onChange={(e) => setEvidenceFilter(e.target.value)}
-        >
-          <option value="">Evidence Level (All)</option>
-          <option value="A">Level A (Strong Human Data)</option>
-          <option value="B">Level B (Promising Human Data)</option>
-          <option value="C">Level C (Classical / Preliminary)</option>
-        </select>
-
         {hasActiveFilters && (
           <button
             onClick={clearFilters}
@@ -319,11 +275,6 @@ export default function Remedies() {
         <div className="grid-4">
           <AnimatePresence>
             {filteredResults.map((rem, i) => {
-              const badgeInfo = EVIDENCE_BADGE_MAP[rem.evidenceLevel] || {
-                label: `Level ${rem.evidenceLevel}`,
-                class: "badge-evidence-b",
-              };
-
               return (
                 <motion.div
                   key={rem.id}
@@ -333,47 +284,46 @@ export default function Remedies() {
                   transition={{ delay: i * 0.02, duration: 0.2 }}
                   className="card-generic"
                   style={{
-                    padding: "20px",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "12px",
-                    cursor: "pointer",
-                    position: "relative",
-                  }}
-                  onClick={() => setSelectedRemedy(rem)}
-                  whileHover={{ y: -4, borderColor: "var(--primary)" }}
-                >
-                  {/* Card Header & Evidence Badge */}
-                  <div className="remedy-card-header">
-                    <span className={`badge-evidence ${badgeInfo.class}`}>
-                      {badgeInfo.label}
-                    </span>
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: "4px",
-                        flexWrap: "wrap",
-                        justifyContent: "flex-end",
-                      }}
-                    >
-                      {rem.categoryTags.slice(0, 2).map((tag) => (
-                        <span
-                          key={tag}
-                          style={{
-                            background: "rgba(45,66,15,0.06)",
-                            color: "var(--primary)",
-                            padding: "3px 7px",
-                            borderRadius: "5px",
-                            fontSize: "10px",
-                            fontWeight: 700,
-                            textTransform: "capitalize",
-                          }}
-                        >
-                          {tag.replace("_", " ")}
-                        </span>
-                      ))}
-                    </div>
+                  padding: "20px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "12px",
+                  cursor: "pointer",
+                  position: "relative",
+                }}
+                onClick={() => setSelectedRemedy(rem)}
+                whileHover={{ y: -4, borderColor: "var(--primary)" }}
+              >
+                {/* Card Header & Category Tags */}
+                <div className="remedy-card-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "4px",
+                      flexWrap: "wrap",
+                    }}
+                  >
+                    {rem.categoryTags.slice(0, 2).map((tag) => (
+                      <span
+                        key={tag}
+                        style={{
+                          background: "rgba(45,66,15,0.06)",
+                          color: "var(--primary)",
+                          padding: "3px 7px",
+                          borderRadius: "5px",
+                          fontSize: "10px",
+                          fontWeight: 700,
+                          textTransform: "capitalize",
+                        }}
+                      >
+                        {tag.replace("_", " ")}
+                      </span>
+                    ))}
                   </div>
+                  <span style={{ fontSize: "11px", color: "var(--muted)", fontWeight: 600 }}>
+                    {rem.partUsed}
+                  </span>
+                </div>
 
                   {/* Title & Botanical Name */}
                   <div>
@@ -610,21 +560,13 @@ export default function Remedies() {
                   }}
                 >
                   <span
-                    className={`badge-evidence ${
-                      EVIDENCE_BADGE_MAP[selectedRemedy.evidenceLevel]?.class ||
-                      ""
-                    }`}
-                  >
-                    {EVIDENCE_BADGE_MAP[selectedRemedy.evidenceLevel]?.label}
-                  </span>
-                  <span
                     style={{
-                      fontSize: "11px",
+                      fontSize: "12px",
                       color: "var(--muted)",
                       fontWeight: 600,
                     }}
                   >
-                    Part: {selectedRemedy.partUsed}
+                    Plant Part Used: {selectedRemedy.partUsed}
                   </span>
                 </div>
                 <h2

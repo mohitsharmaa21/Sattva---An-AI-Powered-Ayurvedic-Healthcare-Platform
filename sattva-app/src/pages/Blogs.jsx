@@ -2,25 +2,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
-const EVIDENCE_BADGE_MAP = {
-  A: {
-    label: "Level A: Strong Human Evidence",
-    class: "badge-evidence-a",
-  },
-  B: {
-    label: "Level B: Promising Human Evidence",
-    class: "badge-evidence-b",
-  },
-  C: {
-    label: "Level C: Classical / Preliminary",
-    class: "badge-evidence-c",
-  },
-  D: {
-    label: "Level D: Insufficient Evidence",
-    class: "badge-evidence-d",
-  },
-};
-
 const BLOG_DATA = [
   {
     id: 1,
@@ -627,62 +608,51 @@ export default function Blogs() {
           }}
         >
           {filteredBlogs.map((blog) => {
-            const badgeInfo = EVIDENCE_BADGE_MAP[blog.evidenceLevel] || {
-              label: `Level ${blog.evidenceLevel || "B"}`,
-              class: "badge-evidence-b",
-            };
-
             return (
               <div
                 key={blog.id}
-                className="card-generic"
+              className="card-generic"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                padding: "24px",
+                borderRadius: "14px",
+                border: "1px solid var(--line)",
+                background: "white",
+                boxShadow: "0 2px 8px rgba(22,35,29,0.03)",
+                transition: "transform 0.2s, border-color 0.2s",
+              }}
+            >
+              {/* Header: Tags */}
+              <div
                 style={{
                   display: "flex",
-                  flexDirection: "column",
-                  padding: "24px",
-                  borderRadius: "14px",
-                  border: "1px solid var(--line)",
-                  background: "white",
-                  boxShadow: "0 2px 8px rgba(22,35,29,0.03)",
-                  transition: "transform 0.2s, border-color 0.2s",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  gap: "8px",
+                  marginBottom: "14px",
                 }}
               >
-                {/* Header: Tags & Evidence Badge */}
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "flex-start",
-                    gap: "8px",
-                    marginBottom: "14px",
-                  }}
-                >
-                  <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
-                    {blog.popupKeywords.map((kw) => (
-                      <span
-                        onClick={() => setActiveKeyword(kw)}
-                        key={kw}
-                        style={{
-                          background: "var(--soft-green)",
-                          color: "var(--green)",
-                          padding: "3px 8px",
-                          borderRadius: "6px",
-                          fontSize: "11px",
-                          fontWeight: 700,
-                          cursor: "pointer",
-                        }}
-                      >
-                        {kw}
-                      </span>
-                    ))}
-                  </div>
-                  <span
-                    className={`badge-evidence ${badgeInfo.class}`}
-                    style={{ fontSize: "10px", padding: "3px 8px", whiteSpace: "nowrap" }}
-                  >
-                    Level {blog.evidenceLevel || "B"}
-                  </span>
+                <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+                  {blog.popupKeywords.map((kw) => (
+                    <span
+                      onClick={() => setActiveKeyword(kw)}
+                      key={kw}
+                      style={{
+                        background: "var(--soft-green)",
+                        color: "var(--green)",
+                        padding: "3px 8px",
+                        borderRadius: "6px",
+                        fontSize: "11px",
+                        fontWeight: 700,
+                        cursor: "pointer",
+                      }}
+                    >
+                      {kw}
+                    </span>
+                  ))}
                 </div>
+              </div>
 
                 {/* Title */}
                 <h2
@@ -902,14 +872,6 @@ export default function Blogs() {
                       {kw}
                     </span>
                   ))}
-                  <span
-                    className={`badge-evidence ${
-                      EVIDENCE_BADGE_MAP[activeBlog.evidenceLevel]?.class || "badge-evidence-b"
-                    }`}
-                    style={{ marginLeft: "auto", fontSize: "11px" }}
-                  >
-                    {EVIDENCE_BADGE_MAP[activeBlog.evidenceLevel]?.label || "Level B: Promising Human Evidence"}
-                  </span>
                 </div>
 
                 <h1
