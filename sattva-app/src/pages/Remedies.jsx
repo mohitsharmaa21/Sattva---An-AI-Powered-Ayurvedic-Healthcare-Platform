@@ -246,13 +246,14 @@ export default function Remedies() {
           <option value="stress">Stress & Sleep</option>
           <option value="digestion">Digestion & Gut</option>
           <option value="cognition">Cognition & Focus</option>
+          <option value="joints">Joints & Mobility</option>
           <option value="immunity">Immunity & Resilience</option>
           <option value="respiratory">Respiratory Health</option>
           <option value="skin">Skin Wellness</option>
           <option value="hair">Hair & Scalp</option>
           <option value="cardiovascular">Cardiovascular</option>
           <option value="metabolism">Metabolism</option>
-          <option value="women_wellness">Women\'s Wellness</option>
+          <option value="women_wellness">Women's Wellness</option>
           <option value="urinary">Urinary & Renal</option>
           <option value="oral_health">Oral & Throat</option>
           <option value="energy">Energy & Vitality</option>

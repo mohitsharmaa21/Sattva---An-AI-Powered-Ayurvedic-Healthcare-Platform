@@ -795,6 +795,53 @@ export const REMEDIES = [
       }
     ],
     "lastVerifiedDate": "2026-08-25"
+  },
+  {
+    "id": "shallaki-extract",
+    "name": "Shallaki Extract",
+    "commonName": "Indian Frankincense / Salai Guggul",
+    "botanicalName": "Boswellia serrata Roxb. ex Colebr.",
+    "partUsed": "Purified Oleo-Gum-Resin (Niryasa)",
+    "formulationType": "Standardized Gum-Resin Extract (Capsule / Tablet)",
+    "categoryTags": [
+      "joints",
+      "pain",
+      "general_wellness"
+    ],
+    "shortDescription": "Standardized gum-resin extract investigated for joint comfort, cartilage resilience, and physical mobility.",
+    "whatItIs": "Shallaki is a classical Ayurvedic tree resin renowned for its Sandhaniya (joint-supportive) and Shothahara (anti-swelling) properties, traditionally pacifying aggravated Vata and Kapha in musculoskeletal channels.",
+    "traditionalUses": [
+      "Classified in classical treatises for Sandhivata (joint stiffness/discomfort) and Amavata.",
+      "Features Tikta-Kashaya-Madhura tastes with Ushna (warming) potency, clearing deep metabolic Ama from synovial tissues.",
+      "Traditionally combined with warm water, Guggulu formulations, or ginger decoction."
+    ],
+    "potentialWellnessSupport": [
+      "Supports comfortable joint flexion, knee walking distance, and morning joint ease.",
+      "Inhibits 5-lipoxygenase (5-LOX) pathway mediating leukotriene synthesis without gastric ulcerogenic effects.",
+      "Assists in protecting joint connective matrix integrity from accelerated degradation."
+    ],
+    "scientificEvidenceSummary": "Multiple double-blind, randomized, placebo-controlled human clinical trials (e.g., assessing 5-Loxin, Aflapin, and standardized Boswellia serrata extracts) demonstrate statistically significant reductions in knee pain scores (WOMAC, VAS) and improvements in physical functional mobility within 30 to 90 days. It serves as a validated botanical adjunct for joint comfort.",
+    "keyConstituents": "Boswellic acids (3-O-acetyl-11-keto-beta-boswellic acid / AKBA, beta-boswellic acid, 11-keto-beta-boswellic acid), Essential oils, and Terpenes.",
+    "safetyPrecautions": "Generally well-tolerated. High doses may cause mild gastrointestinal fullness, heartburn, or nausea in sensitive stomachs. Take with or after meals.",
+    "whoShouldAvoid": "Pregnant or nursing women (potential uterine-stimulating activity in animal studies), individuals with acute gastritis, or those taking prescription anti-inflammatory pharmaceuticals without clinician guidance.",
+    "evidenceLevel": "A",
+    "evidenceLevelLabel": "Strong Human Evidence",
+    "dosageGuidance": "Standardized extract (containing 30–65% boswellic acids / AKBA): 250–500 mg twice daily with meals.",
+    "sources": [
+      {
+        "title": "Ayurvedic Pharmacopoeia of India (API) - Boswellia serrata Monograph",
+        "url": "http://ayush.gov.in",
+        "type": "Government / AYUSH",
+        "publisher": "Pharmacopoeial Commission for Indian Medicine"
+      },
+      {
+        "title": "Efficacy and Tolerability of Boswellia serrata in Knee Joint Mobility: Meta-Analysis (PubMed)",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/32680575/",
+        "type": "Peer-reviewed Journal",
+        "publisher": "BMC Complementary Medicine and Therapies"
+      }
+    ],
+    "lastVerifiedDate": "2026-08-25"
   }
 ];
 
