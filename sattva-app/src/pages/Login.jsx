@@ -96,7 +96,8 @@ export default function Login() {
               bottom: "4px",
               left: role === "patient" ? "4px" : "50%",
               width: "calc(50% - 4px)",
-              background: "white",
+              background: "var(--surface)",
+              border: "1px solid var(--border)",
               borderRadius: "8px",
               boxShadow: "var(--shadow-sm)",
               transition: "0.3s cubic-bezier(0.4, 0, 0.2, 1)",
@@ -119,6 +120,8 @@ export default function Login() {
               style={{
                 width: "100%",
                 padding: "14px 16px",
+                background: "var(--surface-2)",
+                color: "var(--text)",
                 border: "1px solid var(--border)",
                 borderRadius: "8px",
                 fontSize: "15px",
@@ -142,6 +145,8 @@ export default function Login() {
               style={{
                 width: "100%",
                 padding: "14px 16px",
+                background: "var(--surface-2)",
+                color: "var(--text)",
                 border: "1px solid var(--border)",
                 borderRadius: "8px",
                 fontSize: "15px",

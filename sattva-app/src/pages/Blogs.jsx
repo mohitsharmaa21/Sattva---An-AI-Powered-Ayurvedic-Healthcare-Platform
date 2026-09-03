@@ -618,7 +618,7 @@ export default function Blogs() {
                 padding: "24px",
                 borderRadius: "14px",
                 border: "1px solid var(--line)",
-                background: "white",
+                background: "var(--surface)",
                 boxShadow: "0 2px 8px rgba(22,35,29,0.03)",
                 transition: "transform 0.2s, border-color 0.2s",
               }}
@@ -796,14 +796,15 @@ export default function Blogs() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.98 }}
               style={{
-                background: "white",
+                background: "var(--surface)",
+                color: "var(--text)",
                 maxWidth: "840px",
                 width: "100%",
                 borderRadius: "16px",
                 overflow: "hidden",
                 position: "relative",
                 boxShadow: "0 20px 50px rgba(0,0,0,0.2)",
-                border: "1px solid var(--line)",
+                border: "1px solid var(--border)",
               }}
             >
               {/* Close Button */}
@@ -813,7 +814,8 @@ export default function Blogs() {
                   position: "absolute",
                   top: "20px",
                   right: "20px",
-                  background: "white",
+                  background: "var(--surface-2)",
+                  color: "var(--text)",
                   border: "1px solid var(--border)",
                   width: "36px",
                   height: "36px",
@@ -843,8 +845,8 @@ export default function Blogs() {
               <div
                 style={{
                   padding: "36px 36px 28px",
-                  background: "linear-gradient(to bottom, #f3f7f4, #ffffff)",
-                  borderBottom: "1px solid var(--line)",
+                  background: "var(--surface-2)",
+                  borderBottom: "1px solid var(--border)",
                 }}
               >
                 <div
@@ -860,9 +862,9 @@ export default function Blogs() {
                     <span
                       key={kw}
                       style={{
-                        background: "white",
-                        border: "1px solid var(--line)",
-                        color: "var(--green)",
+                        background: "var(--surface)",
+                        border: "1px solid var(--border)",
+                        color: "var(--primary)",
                         padding: "3px 10px",
                         borderRadius: "6px",
                         fontSize: "11px",

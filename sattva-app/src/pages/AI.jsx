@@ -499,25 +499,25 @@ export default function AI() {
                 <div style={{ padding: "0 8px 32px" }}>
                   <div style={{ display: "flex", gap: "16px", alignItems: "flex-end", height: "80px", marginBottom: "8px" }}>
                      <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }}>
-                       <div style={{ width: "100%", background: "rgba(45,66,15,0.05)", borderRadius: "6px", height: "100%", position: "relative", overflow: "hidden" }}>
+                       <div className="ai-dosha-track" style={{ width: "100%", background: "var(--surface-2)", border: "1px solid var(--border)", borderRadius: "6px", height: "100%", position: "relative", overflow: "hidden" }}>
                          <motion.div initial={{ height: 0 }} animate={{ height: `${report.prakriti.vata}%` }} transition={{ duration: 1, delay: 0.2 }} style={{ position: "absolute", bottom: 0, width: "100%", background: "#3498db" }} />
                        </div>
-                       <span style={{ fontSize: "12px", fontWeight: 600, color: "var(--muted)", letterSpacing: "0.05em", textTransform: "uppercase" }}>Vata</span>
-                       <span style={{ fontSize: "14px", fontWeight: 700, color: "var(--text)" }}>{report.prakriti.vata}%</span>
+                       <span style={{ fontSize: "12px", fontWeight: 700, color: "var(--muted)", letterSpacing: "0.05em", textTransform: "uppercase" }}>Vata</span>
+                       <span style={{ fontSize: "14px", fontWeight: 750, color: "var(--text)" }}>{report.prakriti.vata}%</span>
                      </div>
                      <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }}>
-                       <div style={{ width: "100%", background: "rgba(45,66,15,0.05)", borderRadius: "6px", height: "100%", position: "relative", overflow: "hidden" }}>
+                       <div className="ai-dosha-track" style={{ width: "100%", background: "var(--surface-2)", border: "1px solid var(--border)", borderRadius: "6px", height: "100%", position: "relative", overflow: "hidden" }}>
                          <motion.div initial={{ height: 0 }} animate={{ height: `${report.prakriti.pitta}%` }} transition={{ duration: 1, delay: 0.4 }} style={{ position: "absolute", bottom: 0, width: "100%", background: "#e74c3c" }} />
                        </div>
-                       <span style={{ fontSize: "12px", fontWeight: 600, color: "var(--muted)", letterSpacing: "0.05em", textTransform: "uppercase" }}>Pitta</span>
-                       <span style={{ fontSize: "14px", fontWeight: 700, color: "var(--text)" }}>{report.prakriti.pitta}%</span>
+                       <span style={{ fontSize: "12px", fontWeight: 700, color: "var(--muted)", letterSpacing: "0.05em", textTransform: "uppercase" }}>Pitta</span>
+                       <span style={{ fontSize: "14px", fontWeight: 750, color: "var(--text)" }}>{report.prakriti.pitta}%</span>
                      </div>
                      <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }}>
-                       <div style={{ width: "100%", background: "rgba(45,66,15,0.05)", borderRadius: "6px", height: "100%", position: "relative", overflow: "hidden" }}>
+                       <div className="ai-dosha-track" style={{ width: "100%", background: "var(--surface-2)", border: "1px solid var(--border)", borderRadius: "6px", height: "100%", position: "relative", overflow: "hidden" }}>
                          <motion.div initial={{ height: 0 }} animate={{ height: `${report.prakriti.kapha}%` }} transition={{ duration: 1, delay: 0.6 }} style={{ position: "absolute", bottom: 0, width: "100%", background: "#2ecc71" }} />
                        </div>
-                       <span style={{ fontSize: "12px", fontWeight: 600, color: "var(--muted)", letterSpacing: "0.05em", textTransform: "uppercase" }}>Kapha</span>
-                       <span style={{ fontSize: "14px", fontWeight: 700, color: "var(--text)" }}>{report.prakriti.kapha}%</span>
+                       <span style={{ fontSize: "12px", fontWeight: 700, color: "var(--muted)", letterSpacing: "0.05em", textTransform: "uppercase" }}>Kapha</span>
+                       <span style={{ fontSize: "14px", fontWeight: 750, color: "var(--text)" }}>{report.prakriti.kapha}%</span>
                      </div>
                   </div>
                 </div>

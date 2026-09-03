@@ -110,12 +110,13 @@ export default function SymptomHistory() {
                     width: "40px",
                     height: "40px",
                     borderRadius: "50%",
-                    background: "white",
+                    background: "var(--surface)",
                     border: `2px solid ${hist.riskColor}`,
                     display: "grid",
                     placeItems: "center",
                     fontSize: "12px",
                     fontWeight: "bold",
+                    color: "var(--text)",
                   }}
                 >
                   {hist.risk[0]}

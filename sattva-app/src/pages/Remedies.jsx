@@ -151,7 +151,7 @@ export default function Remedies() {
                 top: "100%",
                 left: 0,
                 right: 0,
-                background: "white",
+                background: "var(--surface)",
                 padding: "8px",
                 borderRadius: "12px",
                 boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
@@ -508,7 +508,9 @@ export default function Remedies() {
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.95, opacity: 0, y: 20 }}
               style={{
-                background: "white",
+                background: "var(--surface)",
+                border: "1px solid var(--border)",
+                color: "var(--text)",
                 width: "100%",
                 maxWidth: "680px",
                 borderRadius: "16px",

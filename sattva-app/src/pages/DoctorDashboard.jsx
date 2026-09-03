@@ -51,12 +51,12 @@ export default function DoctorDashboard() {
   };
 
   return (
-    <div style={{ background: "white" }}>
+    <div style={{ background: "var(--bg)", minHeight: "100vh" }}>
       <div className="doctor-dashboard-split">
         {/* LEFT COLUMN: Queue */}
         <div className="doctor-sidebar">
           <div style={{ marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid var(--border)" }}>
-            <h1 style={{ fontSize: "22px", margin: "0 0 4px", color: "#111" }}>Dr. Ananya Sharma</h1>
+            <h1 style={{ fontSize: "22px", margin: "0 0 4px", color: "var(--ink)" }}>Dr. Ananya Sharma</h1>
             <p style={{ margin: 0, fontSize: "14px", color: "var(--muted)", fontWeight: 500 }}>BAMS, MD (Ayurveda)</p>
           </div>
           <h2

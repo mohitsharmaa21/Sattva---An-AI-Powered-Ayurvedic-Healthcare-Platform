@@ -779,15 +779,18 @@ a {
 .auth-card {
   width: 100%;
   max-width: 400px;
-  background: white;
+  background: var(--surface);
   padding: 40px;
   border-radius: var(--radius);
   border: 1px solid var(--border);
   box-shadow: var(--shadow-md);
   text-align: center;
+  color: var(--text);
 }
 .auth-input {
   width: 100%;
+  background: var(--surface-2);
+  color: var(--text);
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 12px 16px;
@@ -807,7 +810,7 @@ a {
   border-radius: 8px;
   padding: 12px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   transition: 0.2s;
   margin-bottom: 16px;
@@ -821,31 +824,33 @@ a {
   justify-content: center;
   gap: 8px;
   width: 100%;
-  background: white;
+  background: var(--surface-2);
   color: var(--text);
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 12px;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   transition: 0.2s;
 }
 .btn-auth-google:hover {
-  background: var(--surface-2);
+  background: var(--surface);
+  border-color: var(--primary);
 }
 
 /* Structured AI Report Modules */
 .ai-report-panel {
-  background: white;
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 32px;
   box-shadow: var(--shadow-sm);
+  color: var(--text);
 }
 .ai-section-title {
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -857,11 +862,12 @@ a {
   color: var(--text);
   padding: 16px;
   background: var(--surface-2);
+  border: 1px solid var(--border);
   border-radius: 8px;
   margin-bottom: 24px;
 }
 .ai-risk-bar-container {
-  background: var(--bg);
+  background: var(--surface-2);
   border: 1px solid var(--border);
   padding: 24px;
   border-radius: 8px;
@@ -1590,9 +1596,89 @@ body.dark-theme {
   stroke: #0d1510 !important;
 }
 
+.dark-theme .ai-report-panel {
+  background: #142019 !important;
+  border-color: rgba(116, 198, 157, 0.2) !important;
+  color: #e1ede6 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+}
+
+.dark-theme .ai-section-title {
+  color: #74c69d !important;
+  font-weight: 750 !important;
+}
+
+.dark-theme .ai-summary-text {
+  background: #1b2d23 !important;
+  border-color: rgba(116, 198, 157, 0.2) !important;
+  color: #eff8f3 !important;
+}
+
+.dark-theme .ai-risk-bar-container {
+  background: #1b2d23 !important;
+  border-color: rgba(116, 198, 157, 0.2) !important;
+  color: #eff8f3 !important;
+}
+
+.dark-theme .ai-recommendation {
+  background: #1b2d23 !important;
+  border-color: rgba(116, 198, 157, 0.2) !important;
+  color: #eff8f3 !important;
+}
+
+.dark-theme .ai-dosha-track {
+  background: #1b2d23 !important;
+  border-color: rgba(116, 198, 157, 0.2) !important;
+}
+
 .dark-theme .btn-product.secondary {
   background: var(--surface-2) !important;
   color: var(--primary) !important;
   border-color: var(--border) !important;
 }
+
+.dark-theme .insurance-condition-btn {
+  background: var(--surface) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.dark-theme .insurance-condition-btn:hover {
+  background: var(--surface-2) !important;
+  border-color: var(--primary) !important;
+}
+.dark-theme .insurance-condition-btn.selected {
+  background: var(--primary) !important;
+  color: #0d1510 !important;
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 16px rgba(82, 183, 136, 0.25);
+}
+
+.dark-theme .auth-card {
+  background: #142019 !important;
+  border-color: rgba(116, 198, 157, 0.2) !important;
+  color: #e1ede6 !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+}
+
+.dark-theme .btn-auth-submit {
+  background: var(--primary) !important;
+  color: #0d1510 !important;
+  font-weight: 750 !important;
+}
+
+.dark-theme .btn-auth-submit:hover {
+  background: var(--primary-hover) !important;
+}
+
+.dark-theme .btn-auth-google {
+  background: #1b2d23 !important;
+  color: #eff8f3 !important;
+  border-color: rgba(116, 198, 157, 0.2) !important;
+}
+
+.dark-theme .btn-auth-google:hover {
+  background: #233b2e !important;
+  border-color: var(--primary) !important;
+}
+
 

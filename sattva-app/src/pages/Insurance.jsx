@@ -77,7 +77,7 @@ export default function Insurance() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="card"
+            className="card-generic"
             style={{ padding: "40px" }}
           >
             <h2
@@ -171,7 +171,7 @@ export default function Insurance() {
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
-                  background: "var(--surface)",
+                  background: "var(--surface-2)",
                   padding: "16px",
                   borderRadius: "8px",
                   border: "1px solid var(--border)",
@@ -189,14 +189,15 @@ export default function Insurance() {
                 <button
                   onClick={() => setSmoker(!smoker)}
                   style={{
-                    background: smoker ? "#c0392b" : "var(--border)",
-                    color: "white",
-                    border: "none",
+                    background: smoker ? "#c0392b" : "var(--surface)",
+                    color: smoker ? "white" : "var(--muted)",
+                    border: "1px solid var(--border)",
                     padding: "6px 16px",
                     borderRadius: "999px",
-                    fontWeight: 600,
+                    fontWeight: 700,
                     fontSize: "12px",
                     cursor: "pointer",
+                    transition: "all 0.2s ease"
                   }}
                 >
                   {smoker ? "YES" : "NO"}
@@ -226,6 +227,7 @@ export default function Insurance() {
                     <button
                       key={cond}
                       onClick={() => toggleCondition(cond)}
+                      className={`insurance-condition-btn ${conditions[cond] ? "selected" : ""}`}
                       style={{
                         padding: "16px",
                         border: "1px solid",
@@ -233,16 +235,17 @@ export default function Insurance() {
                           ? "var(--primary)"
                           : "var(--border)",
                         background: conditions[cond]
-                          ? "rgba(27,46,33,0.05)"
-                          : "white",
-                        color: conditions[cond]
                           ? "var(--primary)"
+                          : "var(--surface)",
+                        color: conditions[cond]
+                          ? "#0d1510"
                           : "var(--text)",
                         borderRadius: "8px",
                         cursor: "pointer",
-                        fontWeight: 600,
+                        fontWeight: 700,
                         fontSize: "14px",
                         textTransform: "capitalize",
+                        transition: "all 0.2s ease",
                       }}
                     >
                       {cond.replace(/([A-Z])/g, " $1").trim()}
@@ -254,7 +257,7 @@ export default function Insurance() {
               <button
                 onClick={calculateRisk}
                 disabled={isCalculating}
-                className="btn btn-primary"
+                className="btn-product primary"
                 style={{
                   width: "100%",
                   padding: "16px",
@@ -277,7 +280,7 @@ export default function Insurance() {
             <motion.div
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="card"
+              className="card-generic"
               style={{
                 padding: "40px",
                 display: "flex",
@@ -313,7 +316,8 @@ export default function Insurance() {
                 <button
                   onClick={() => setResult(null)}
                   style={{
-                    background: "transparent",
+                    background: "var(--surface-2)",
+                    color: "var(--text)",
                     border: "1px solid var(--border)",
                     padding: "8px 16px",
                     borderRadius: "8px",
@@ -328,7 +332,7 @@ export default function Insurance() {
 
               <div
                 style={{
-                  background: "var(--surface)",
+                  background: "var(--surface-2)",
                   border: "1px solid var(--border)",
                   padding: "24px",
                   borderRadius: "12px",
@@ -365,7 +369,7 @@ export default function Insurance() {
                     fontSize: "48px",
                     fontWeight: "bold",
                     color: result.color,
-                    opacity: 0.2,
+                    opacity: 0.3,
                   }}
                 >
                   {result.score}
@@ -398,7 +402,7 @@ export default function Insurance() {
               </div>
 
               <button
-                className="btn btn-primary"
+                className="btn-product primary"
                 style={{
                   width: "100%",
                   padding: "16px",
