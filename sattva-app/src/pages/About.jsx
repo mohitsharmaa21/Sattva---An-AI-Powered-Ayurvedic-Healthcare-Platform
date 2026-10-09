@@ -1,7 +1,10 @@
 import { motion } from "framer-motion";
 import sattvaLogo from "../assets/sattva-logo.png";
+import { useLanguage } from "../context/LanguageContext";
 
 export default function About() {
+  const { t } = useLanguage();
+
   return (
     <div className="container" style={{ paddingBottom: "100px" }}>
       <div
@@ -9,13 +12,13 @@ export default function About() {
         style={{ marginBottom: "60px", textAlign: "center" }}
       >
         <h1 className="page-title" style={{ fontSize: "40px" }}>
-          About Sattva
+          {t("footer.informationLinks.about")}
         </h1>
         <p
           className="page-subtitle"
           style={{ maxWidth: "600px", margin: "0 auto" }}
         >
-          Built to restore trust and transparency to the clinical pipeline.
+          {t("footer.brandDesc")}
         </p>
       </div>
 

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
+import { useLanguage } from "../context/LanguageContext";
 
 const FAQ_ITEMS = [
   {
@@ -31,6 +32,7 @@ const FAQ_ITEMS = [
 
 export default function FAQs() {
   const [openIndex, setOpenIndex] = useState(null);
+  const { t } = useLanguage();
 
   const toggle = (idx) => {
     setOpenIndex(openIndex === idx ? null : idx);
@@ -40,10 +42,10 @@ export default function FAQs() {
     <div className="container" style={{ paddingBottom: "100px", maxWidth: "860px", margin: "0 auto" }}>
       <div className="page-header" style={{ marginBottom: "40px", textAlign: "center" }}>
         <h1 className="page-title" style={{ fontSize: "36px" }}>
-          Frequently Asked Questions
+          {t("policies.faqsTitle")}
         </h1>
         <p className="page-subtitle" style={{ maxWidth: "600px", margin: "0 auto" }}>
-          Clear answers about Sattva's academic architecture, evidence standards, and wellness guidance methodology.
+          {t("policies.faqsSubtitle")}
         </p>
       </div>
 

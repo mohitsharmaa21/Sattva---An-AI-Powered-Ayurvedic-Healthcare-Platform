@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "../context/LanguageContext";
 
 const BLOG_DATA = [
   {
@@ -426,6 +427,7 @@ const BLOG_DATA = [
 ];
 
 export default function Blogs() {
+  const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
   const [activeKeyword, setActiveKeyword] = useState(null);
   const [activeBlog, setActiveBlog] = useState(null);
@@ -487,9 +489,9 @@ export default function Blogs() {
   return (
     <div className="container" style={{ paddingBottom: "80px" }}>
       <div className="page-header" style={{ marginBottom: "24px" }}>
-        <h1 className="page-title">Ayurvedic Clinical Knowledge</h1>
+        <h1 className="page-title">{t("blogs.pageTitle")}</h1>
         <p className="page-subtitle">
-          Evidence-aware clinical protocols, classical Ayurvedic mechanisms, and peer-reviewed pharmacological documentation verified against Ministry of AYUSH monographs and PubMed clinical literature.
+          {t("blogs.pageSubtitle")}
         </p>
       </div>
 

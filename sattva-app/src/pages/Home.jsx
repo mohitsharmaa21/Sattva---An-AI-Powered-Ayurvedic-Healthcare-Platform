@@ -1,11 +1,24 @@
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { getISTDetails } from "../utils/istTime";
+import { useLanguage } from "../context/LanguageContext";
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState(null);
   const carouselRef = useRef(null);
   const istInfo = getISTDetails();
+  const { t, language } = useLanguage();
+
+  const getLocalizedGreeting = () => {
+    if (language === "hi") {
+      const h = istInfo.hour;
+      if (h >= 4 && h < 12) return "शुभ प्रभात";
+      if (h >= 12 && h < 17) return "शुभ दोपहर";
+      if (h >= 17 && h < 22) return "शुभ संध्या";
+      return "शुभ रात्रि";
+    }
+    return istInfo.greeting;
+  };
 
   const toggleFaq = (index) => {
     setOpenFaq(openFaq === index ? null : index);
@@ -87,11 +100,11 @@ export default function Home() {
               marginBottom: "16px",
             }}
           >
-            <span>✨ {istInfo.greeting}</span>
+            <span>✨ {getLocalizedGreeting()}</span>
             <span style={{ opacity: 0.5 }}>·</span>
             <span>{istInfo.timeString}</span>
           </div>
-          <h1 className="hero-product-title">What are you feeling today?</h1>
+          <h1 className="hero-product-title">{t("home.heroTitle")}</h1>
 
           <div className="search-container">
             <svg
@@ -109,16 +122,16 @@ export default function Home() {
             <input
               type="text"
               className="symptom-input"
-              placeholder="Search symptoms, conditions, or remedies..."
+              placeholder={t("home.searchPlaceholder")}
             />
           </div>
 
           <div className="hero-primary-actions">
             <Link to="/ai-check" className="btn-product primary">
-              Start AI Check
+              {t("home.startAiCheck")}
             </Link>
             <Link to="/consultation" className="btn-product secondary">
-              Book Consultation
+              {t("home.bookConsultation")}
             </Link>
           </div>
         </div>
@@ -143,7 +156,7 @@ export default function Home() {
                   <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
                 </svg>
               </div>
-              <div className="action-label">AI Check</div>
+              <div className="action-label">{t("home.quickActions.aiCheck")}</div>
             </Link>
             <Link to="/consultation" className="action-card">
               <div className="action-icon">
@@ -160,7 +173,7 @@ export default function Home() {
                   <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
                 </svg>
               </div>
-              <div className="action-label">Book Doctor</div>
+              <div className="action-label">{t("home.quickActions.bookDoctor")}</div>
             </Link>
             <Link to="/ayurveda" className="action-card">
               <div className="action-icon">
@@ -179,7 +192,7 @@ export default function Home() {
                   <path d="M12 8h.01" />
                 </svg>
               </div>
-              <div className="action-label">Ayurveda</div>
+              <div className="action-label">{t("home.quickActions.ayurveda")}</div>
             </Link>
             <Link to="/dashboard" className="action-card">
               <div className="action-icon">
@@ -199,7 +212,7 @@ export default function Home() {
                   <path d="M8 17v-3" />
                 </svg>
               </div>
-              <div className="action-label">Dashboard</div>
+              <div className="action-label">{t("home.quickActions.dashboard")}</div>
             </Link>
           </div>
         </div>

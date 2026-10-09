@@ -1681,4 +1681,300 @@ body.dark-theme {
   border-color: var(--primary) !important;
 }
 
+/* -----------------------------
+   DARK THEME: REMEDIES & DIRECTORY
+----------------------------- */
+.dark-theme .remedies-disclaimer-banner {
+  background: rgba(82, 183, 136, 0.08) !important;
+  border: 1px solid rgba(116, 198, 157, 0.25) !important;
+  border-left: 4px solid var(--primary) !important;
+}
+.dark-theme .remedies-disclaimer-banner p {
+  color: #d1e5db !important;
+}
+.dark-theme .remedies-disclaimer-banner strong {
+  color: #74c69d !important;
+}
+.dark-theme .remedies-disclaimer-banner svg {
+  stroke: #74c69d !important;
+}
+
+.dark-theme .filter-bar {
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+}
+.dark-theme .filter-input {
+  background: var(--surface-2) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+}
+.dark-theme .filter-input::placeholder {
+  color: var(--muted) !important;
+}
+.dark-theme .filter-input-wrap svg {
+  color: var(--muted) !important;
+}
+.dark-theme .filter-select {
+  background: var(--surface-2) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+}
+.dark-theme .filter-select option {
+  background: #142019 !important;
+  color: #eff8f3 !important;
+}
+
+.dark-theme .remedy-card-header span:first-child {
+  background: rgba(82, 183, 136, 0.15) !important;
+  color: #74c69d !important;
+}
+.dark-theme .remedy-botanical-name {
+  color: #8fa89b !important;
+}
+.dark-theme .remedy-bullet-list {
+  color: #c4d7cc !important;
+}
+.dark-theme .remedy-bullet-list li strong {
+  color: #eff8f3 !important;
+}
+.dark-theme .remedy-bullet-list li.safety-bullet {
+  color: #f39c12 !important;
+}
+.dark-theme .remedy-bullet-list li.safety-bullet::before {
+  color: #e74c3c !important;
+}
+.dark-theme .remedy-source-count {
+  background: #1b2d23 !important;
+  color: #74c69d !important;
+  border: 1px solid rgba(116, 198, 157, 0.15) !important;
+}
+.dark-theme .btn-remedy-details {
+  background: var(--surface-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.dark-theme .btn-remedy-details:hover {
+  background: #223a2d !important;
+  color: var(--primary) !important;
+}
+.dark-theme .btn-remedy-explore {
+  background: var(--primary) !important;
+  color: #0d1510 !important;
+  font-weight: 700 !important;
+}
+.dark-theme .btn-remedy-explore:hover {
+  background: var(--primary-hover) !important;
+}
+
+.dark-theme .remedy-modal-section {
+  background: #18281f !important;
+  border: 1px solid rgba(116, 198, 157, 0.18) !important;
+}
+.dark-theme .remedy-modal-section h4 {
+  color: #74c69d !important;
+}
+.dark-theme .remedy-modal-section p,
+.dark-theme .remedy-modal-section ul,
+.dark-theme .remedy-modal-section li {
+  color: #d8e8de !important;
+}
+.dark-theme .remedy-modal-section strong {
+  color: #eff8f3 !important;
+}
+.dark-theme .remedy-modal-caution {
+  background: rgba(231, 76, 60, 0.12) !important;
+  border: 1px solid rgba(231, 76, 60, 0.35) !important;
+}
+.dark-theme .remedy-modal-caution h4 {
+  color: #e74c3c !important;
+}
+.dark-theme .remedy-modal-caution p {
+  color: #f7b7b0 !important;
+}
+
+/* -----------------------------
+   DARK THEME: DASHBOARD & APP SHELL
+----------------------------- */
+.dark-theme .status-row {
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+}
+.dark-theme .status-row > div {
+  border-right: 1px solid var(--line) !important;
+}
+.dark-theme .status-row span {
+  color: var(--muted) !important;
+}
+.dark-theme .status-row b {
+  color: #eff8f3 !important;
+}
+.dark-theme .status-row small {
+  color: #9eb5a8 !important;
+}
+.dark-theme .status-good {
+  color: #74c69d !important;
+}
+
+.dark-theme .eyebrow,
+.dark-theme .section-kicker {
+  color: #74c69d !important;
+}
+.dark-theme .page-heading p,
+.dark-theme .panel-heading p {
+  color: #b0c5ba !important;
+}
+.dark-theme .data-note {
+  color: #8fa89b !important;
+}
+.dark-theme .crumb {
+  color: #8fa89b !important;
+}
+
+.dark-theme .metric-top {
+  color: var(--muted) !important;
+}
+.dark-theme .trend-up {
+  background: rgba(82, 183, 136, 0.15) !important;
+  color: #74c69d !important;
+}
+.dark-theme .metric-card > strong {
+  color: #eff8f3 !important;
+}
+.dark-theme .metric-card p {
+  color: #9eb5a8 !important;
+}
+
+.dark-theme .segment-control {
+  background: var(--surface-2) !important;
+  border: 1px solid var(--border) !important;
+}
+.dark-theme .segment-control button {
+  color: var(--muted) !important;
+}
+.dark-theme .segment-control button.selected {
+  background: #142019 !important;
+  color: #74c69d !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) !important;
+}
+.dark-theme .activity-chart {
+  border-bottom-color: var(--line) !important;
+}
+.dark-theme .bar-col span {
+  color: var(--muted) !important;
+}
+
+.dark-theme .care-panel {
+  background: var(--surface) !important;
+  border-color: var(--border) !important;
+}
+.dark-theme .care-panel p {
+  color: #b0c5ba !important;
+}
+.dark-theme .secondary-button {
+  background: var(--surface-2) !important;
+  color: #74c69d !important;
+  border: 1px solid var(--border) !important;
+}
+.dark-theme .secondary-button:hover {
+  background: #233e30 !important;
+  color: #eff8f3 !important;
+}
+
+.dark-theme .risk-card > p {
+  color: #b0c5ba !important;
+}
+.dark-theme .calculation-note {
+  background: var(--surface-2) !important;
+  color: #c4d7cc !important;
+  border: 1px solid var(--border) !important;
+}
+.dark-theme .text-button {
+  color: #74c69d !important;
+}
+.dark-theme .gauge-score b {
+  color: #eff8f3 !important;
+}
+.dark-theme .gauge-score span {
+  color: #74c69d !important;
+}
+.dark-theme .gauge-wrap svg path:first-child,
+.dark-theme .gauge-bg-arc {
+  stroke: #1e3328 !important;
+}
+
+.dark-theme .timeline-card .panel-heading a {
+  color: #74c69d !important;
+}
+.dark-theme .mini-timeline small {
+  color: #8fa89b !important;
+}
+.dark-theme .mini-timeline b {
+  color: #eff8f3 !important;
+}
+.dark-theme .mini-timeline p {
+  color: #9eb5a8 !important;
+}
+.dark-theme .mini-timeline > span {
+  background: #142019 !important;
+  border-color: #74c69d !important;
+}
+.dark-theme .mini-timeline:not(:last-child):after {
+  border-left-color: var(--line) !important;
+}
+
+/* Location modal dark mode */
+.dark-theme .location-modal {
+  background: #142019 !important;
+  border-color: var(--border) !important;
+  color: var(--text) !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6) !important;
+}
+.dark-theme .location-modal h2 {
+  color: #74c69d !important;
+}
+.dark-theme .location-modal p {
+  color: #b0c5ba !important;
+}
+.dark-theme .location-btn {
+  background: var(--surface-2) !important;
+  border-color: var(--border) !important;
+  color: #eff8f3 !important;
+}
+.dark-theme .location-btn:hover {
+  background: #233e30 !important;
+  border-color: var(--primary) !important;
+  color: #74c69d !important;
+}
+.dark-theme .location-input {
+  background: var(--surface-2) !important;
+  border-color: var(--border) !important;
+  color: #eff8f3 !important;
+}
+
+/* Doctor Workspace Dark Mode */
+.dark-theme .doctor-sidebar {
+  background: var(--surface) !important;
+  border-right-color: var(--border) !important;
+}
+.dark-theme .patient-list-item.upcoming {
+  background: var(--surface-2) !important;
+  border-color: var(--border) !important;
+  color: var(--text) !important;
+}
+.dark-theme .patient-list-item.active {
+  background: rgba(82, 183, 136, 0.12) !important;
+  border-color: var(--primary) !important;
+}
+.dark-theme .timeline-item::before {
+  background: var(--surface) !important;
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 4px var(--bg) !important;
+}
+.dark-theme .risk-meter-label {
+  color: #eff8f3 !important;
+}
+
+
 

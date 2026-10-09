@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { REMEDIES } from "../data/remediesData";
+import { useLanguage } from "../context/LanguageContext";
 
 export default function Remedies() {
+  const { t, language } = useLanguage();
   const [selectedRemedy, setSelectedRemedy] = useState(null);
 
   // Filter States
@@ -71,7 +73,7 @@ export default function Remedies() {
 
   const handleOrder = (name, e) => {
     e.stopPropagation();
-    setToast(`Saved ${name} to your Wellness Exploration List`);
+    setToast(language === "hi" ? `${name} को आपकी वेलनेस सूची में सहेजा गया` : `Saved ${name} to your Wellness Exploration List`);
     setTimeout(() => setToast(null), 3000);
   };
 
@@ -85,11 +87,9 @@ export default function Remedies() {
   return (
     <div className="container" style={{ paddingBottom: "80px" }}>
       <div className="page-header">
-        <h1 className="page-title">Ayurvedic Remedies Directory</h1>
+        <h1 className="page-title">{t("remedies.pageTitle")}</h1>
         <p className="page-subtitle">
-          Evidence-aware catalogue of classical Ayurvedic formulations and single
-          herbs, verified against Ministry of AYUSH monographs and peer-reviewed
-          scientific literature.
+          {t("remedies.pageSubtitle")}
         </p>
       </div>
 
@@ -111,13 +111,7 @@ export default function Remedies() {
           <line x1="12" y1="8" x2="12.01" y2="8" />
         </svg>
         <p>
-          <strong>Scientific & Traditional Context:</strong> Sattva provides
-          general wellness information based on classical Ayurvedic treatises and
-          available modern research. It is not a substitute for professional
-          medical diagnosis or treatment. Consult a qualified healthcare
-          professional before using herbal products, especially if you are
-          pregnant, breastfeeding, taking prescription medicines, or managing a
-          chronic medical condition.
+          <strong>{t("remedies.safetyNotice")}:</strong> {t("footer.disclaimerBannerText")}
         </p>
       </div>
 
@@ -140,7 +134,7 @@ export default function Remedies() {
           <input
             type="text"
             className="filter-input"
-            placeholder="Search by herb, botanical name, or keyword..."
+            placeholder={t("remedies.searchPlaceholder")}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -184,7 +178,7 @@ export default function Remedies() {
                   }
                 >
                   <div>
-                    <h4 style={{ margin: 0, fontSize: "13.5px", color: "#111" }}>
+                    <h4 style={{ margin: 0, fontSize: "13.5px", color: "var(--ink)" }}>
                       {r.name}
                     </h4>
                     <p
@@ -332,7 +326,7 @@ export default function Remedies() {
                         margin: "4px 0 2px",
                         fontSize: "16px",
                         fontWeight: 750,
-                        color: "#17241e",
+                        color: "var(--ink)",
                       }}
                     >
                       {rem.name}
@@ -381,9 +375,10 @@ export default function Remedies() {
                     }}
                   >
                     <button
+                      className="btn-remedy-details"
                       style={{
                         padding: "8px",
-                        background: "transparent",
+                        background: "var(--surface-2)",
                         border: "1px solid var(--border)",
                         borderRadius: "6px",
                         fontSize: "12px",
@@ -392,9 +387,10 @@ export default function Remedies() {
                         cursor: "pointer",
                       }}
                     >
-                      View Details
+                      {t("common.viewDetails")}
                     </button>
                     <button
+                      className="btn-remedy-explore"
                       onClick={(e) => handleOrder(rem.name, e)}
                       style={{
                         padding: "8px",
@@ -407,7 +403,7 @@ export default function Remedies() {
                         cursor: "pointer",
                       }}
                     >
-                      Explore Product
+                      {t("remedies.exploreProduct")}
                     </button>
                   </div>
                 </motion.div>
@@ -575,7 +571,7 @@ export default function Remedies() {
                   style={{
                     margin: "0 0 4px",
                     fontSize: "24px",
-                    color: "#17241e",
+                    color: "var(--ink)",
                     fontWeight: 800,
                   }}
                 >
@@ -586,7 +582,7 @@ export default function Remedies() {
                     margin: "0 0 8px",
                     fontStyle: "italic",
                     fontSize: "13.5px",
-                    color: "#546e60",
+                    color: "var(--muted)",
                   }}
                 >
                   {selectedRemedy.botanicalName} ({selectedRemedy.commonName})
@@ -638,7 +634,7 @@ export default function Remedies() {
                     Overview & Formulation
                   </h4>
                   <p>{selectedRemedy.whatItIs}</p>
-                  <p style={{ marginTop: "8px", fontSize: "12.5px", color: "#617269" }}>
+                  <p style={{ marginTop: "8px", fontSize: "12.5px", color: "var(--muted)" }}>
                     <strong>Formulation Type:</strong> {selectedRemedy.formulationType}
                   </p>
                 </div>
@@ -717,19 +713,19 @@ export default function Remedies() {
 
                 {/* 5. Safety, Precautions & Contraindications */}
                 <div
-                  className="remedy-modal-section"
+                  className="remedy-modal-section remedy-modal-caution"
                   style={{
-                    background: "rgba(231,76,60,0.04)",
-                    borderColor: "#f5c6cb",
+                    background: "rgba(231,76,60,0.06)",
+                    borderColor: "rgba(231,76,60,0.3)",
                   }}
                 >
-                  <h4 style={{ color: "#c0392b" }}>
+                  <h4 style={{ color: "#e74c3c" }}>
                     <svg
                       width="15"
                       height="15"
                       viewBox="0 0 24 24"
                       fill="none"
-                      stroke="#c0392b"
+                      stroke="#e74c3c"
                       strokeWidth="2.2"
                     >
                       <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
@@ -738,10 +734,10 @@ export default function Remedies() {
                     </svg>
                     Safety, Interactions & Contraindications
                   </h4>
-                  <p style={{ color: "#78281f", marginBottom: "8px" }}>
+                  <p style={{ color: "var(--text)", marginBottom: "8px" }}>
                     <strong>Precautions:</strong> {selectedRemedy.safetyPrecautions}
                   </p>
-                  <p style={{ color: "#78281f" }}>
+                  <p style={{ color: "var(--text)" }}>
                     <strong>Who should avoid or consult a doctor:</strong>{" "}
                     {selectedRemedy.whoShouldAvoid}
                   </p>

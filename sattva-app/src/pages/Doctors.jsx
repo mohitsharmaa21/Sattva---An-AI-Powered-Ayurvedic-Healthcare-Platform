@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "../context/LanguageContext";
 
 const DOCTORS = [
   {
@@ -168,6 +169,7 @@ const DOCTORS = [
 ];
 
 export default function Doctors() {
+  const { t, language } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
   const [expFilter, setExpFilter] = useState("");
   const [specFilter, setSpecFilter] = useState("");
@@ -225,10 +227,13 @@ export default function Doctors() {
   return (
     <div className="container" style={{ paddingBottom: "80px" }}>
       <div className="page-header">
-        <h1 className="page-title">Find an Ayurvedic Expert</h1>
+        <h1 className="page-title">
+          {language === "hi" ? "आयुर्वेदिक विशेषज्ञ खोजें" : "Find an Ayurvedic Expert"}
+        </h1>
         <p className="page-subtitle">
-          Browse highly qualified practitioners for verified consultations and
-          holistic guidance.
+          {language === "hi"
+            ? "सत्यापित परामर्श और समग्र मार्गदर्शन के लिए योग्य चिकित्सकों से संपर्क करें।"
+            : "Browse highly qualified practitioners for verified consultations and holistic guidance."}
         </p>
       </div>
 
@@ -251,7 +256,7 @@ export default function Doctors() {
           <input
             type="text"
             className="filter-input"
-            placeholder="Search by name or specialization"
+            placeholder={language === "hi" ? "चिकित्सक का नाम या विशेषज्ञता खोजें..." : "Search by name or specialization"}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />

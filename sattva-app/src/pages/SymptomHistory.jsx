@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useLanguage } from "../context/LanguageContext";
 
 const SYMPTOM_HISTORY = [
   {
@@ -31,6 +32,8 @@ const SYMPTOM_HISTORY = [
 ];
 
 export default function SymptomHistory() {
+  const { t } = useLanguage();
+
   return (
     <section
       className="section"
@@ -40,25 +43,14 @@ export default function SymptomHistory() {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="card"
+          className="card-generic"
           style={{ padding: "40px" }}
         >
           <div style={{ marginBottom: "32px" }}>
-            <h3
-              style={{
-                margin: "0 0 8px",
-                fontSize: "14px",
-                textTransform: "uppercase",
-                letterSpacing: "0.05em",
-                color: "var(--muted)",
-              }}
-            >
-              Health Log
-            </h3>
             <h2
               style={{ margin: 0, fontSize: "32px", color: "var(--primary)" }}
             >
-              Symptom History
+              {t("history.pageTitle")}
             </h2>
             <p
               style={{
@@ -68,8 +60,7 @@ export default function SymptomHistory() {
                 fontSize: "15px",
               }}
             >
-              A historical timeline of your logged symptoms and interactions
-              with the AI Triage system.
+              {t("history.pageSubtitle")}
             </p>
           </div>
 

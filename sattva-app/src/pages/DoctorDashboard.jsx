@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { getActiveUser } from "../utils/user";
 
 const MOCK_PATIENTS = [
   {
@@ -38,6 +39,19 @@ const MOCK_PATIENTS = [
 export default function DoctorDashboard() {
   const [activePatient, setActivePatient] = useState(null);
   const [toast, setToast] = useState(null);
+  const [doctorName, setDoctorName] = useState(() => getActiveUser("doctor"));
+
+  useEffect(() => {
+    const handleUserChanged = () => {
+      setDoctorName(getActiveUser("doctor"));
+    };
+    window.addEventListener("sattva_user_changed", handleUserChanged);
+    window.addEventListener("storage", handleUserChanged);
+    return () => {
+      window.removeEventListener("sattva_user_changed", handleUserChanged);
+      window.removeEventListener("storage", handleUserChanged);
+    };
+  }, []);
 
   // Doctor form states
   const [clinicalNote, setClinicalNote] = useState("");
@@ -56,7 +70,7 @@ export default function DoctorDashboard() {
         {/* LEFT COLUMN: Queue */}
         <div className="doctor-sidebar">
           <div style={{ marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid var(--border)" }}>
-            <h1 style={{ fontSize: "22px", margin: "0 0 4px", color: "var(--ink)" }}>Dr. Ananya Sharma</h1>
+            <h1 style={{ fontSize: "22px", margin: "0 0 4px", color: "var(--ink)" }}>{doctorName}</h1>
             <p style={{ margin: 0, fontSize: "14px", color: "var(--muted)", fontWeight: 500 }}>BAMS, MD (Ayurveda)</p>
           </div>
           <h2

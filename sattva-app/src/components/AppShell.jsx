@@ -1,8 +1,10 @@
 import { NavLink, Link, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import sattvaLogo from "../assets/sattva-logo.png";
 import { getActiveUser, getUserInitials } from "../utils/user";
 import { useTheme } from "../utils/theme";
+import { useLanguage } from "../context/LanguageContext";
+import LanguageSelector from "./LanguageSelector";
 
 const Icon = ({ name, size = 18 }) => {
   const paths = {
@@ -22,24 +24,44 @@ const Icon = ({ name, size = 18 }) => {
   return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>;
 };
 
-const items = [
-  ["/dashboard", "Overview", "grid"], ["/ai-check", "AI health check", "spark"], ["/consultation", "Consultations", "users"], ["/ayurveda", "Ayurveda", "leaf"], ["/blogs", "Health journal", "book"], ["/history", "Health history", "clock"], ["/insurance", "Wellness score", "shield"],
-];
-
 export default function AppShell({ children }) {
   const [open, setOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const { t } = useLanguage();
   const location = useLocation();
   const doctorMode = location.pathname === "/doctor-dashboard";
-  const activeUser = getActiveUser();
+  const [activeUser, setActiveUser] = useState(() => getActiveUser(doctorMode ? "doctor" : "patient"));
   const initials = getUserInitials(activeUser);
+
+  useEffect(() => {
+    const handleUserChange = () => {
+      setActiveUser(getActiveUser(doctorMode ? "doctor" : "patient"));
+    };
+    window.addEventListener("sattva_user_changed", handleUserChange);
+    window.addEventListener("storage", handleUserChange);
+    return () => {
+      window.removeEventListener("sattva_user_changed", handleUserChange);
+      window.removeEventListener("storage", handleUserChange);
+    };
+  }, [doctorMode]);
+
+  const items = [
+    ["/dashboard", t("nav.overview"), "grid"],
+    ["/ai-check", t("nav.aiCheck"), "spark"],
+    ["/consultation", t("nav.consultations"), "users"],
+    ["/ayurveda", t("nav.ayurveda"), "leaf"],
+    ["/blogs", t("nav.healthJournal"), "book"],
+    ["/history", t("nav.healthHistory"), "clock"],
+    ["/insurance", t("nav.wellnessScore"), "shield"],
+  ];
+
   return <div className={`app-shell ${open ? "shell-open" : ""}`}>
     <aside className="app-sidebar">
-      <Link className="app-brand" to="/dashboard"><img src={sattvaLogo} alt="Sattva"/><span>Sattva</span></Link>
-      <p className="sidebar-caption">{doctorMode ? "CLINICAL WORKSPACE" : "PATIENT PORTAL"}</p>
-      <nav>{doctorMode ? <NavLink to="/doctor-dashboard" className="side-link"><Icon name="users"/>Doctor workspace</NavLink> : items.map(([to, label, icon]) => <NavLink key={to} to={to} onClick={() => setOpen(false)} className="side-link"><Icon name={icon}/><span>{label}</span></NavLink>)}</nav>
-      <div className="sidebar-bottom"><NavLink to="/login" className="side-link"><Icon name="settings"/><span>Account & settings</span></NavLink><p>Demo patient data · Not medical advice</p></div>
+      <Link className="app-brand" to="/dashboard"><img src={sattvaLogo} alt="Sattva"/><span>{t("common.appName", "Sattva")}</span></Link>
+      <p className="sidebar-caption">{doctorMode ? t("nav.clinicalWorkspace") : t("nav.patientPortal")}</p>
+      <nav>{doctorMode ? <NavLink to="/doctor-dashboard" className="side-link"><Icon name="users"/>{t("nav.doctorWorkspace")}</NavLink> : items.map(([to, label, icon]) => <NavLink key={to} to={to} onClick={() => setOpen(false)} className="side-link"><Icon name={icon}/><span>{label}</span></NavLink>)}</nav>
+      <div className="sidebar-bottom"><NavLink to="/login" className="side-link"><Icon name="settings"/><span>{t("nav.accountSettings")}</span></NavLink><p>{t("nav.disclaimerCaption")}</p></div>
     </aside>
-    <div className="app-frame"><header className="app-topbar"><button className="icon-button menu-trigger" onClick={() => setOpen(!open)} aria-label="Toggle navigation"><Icon name="menu"/></button><div className="crumb">{doctorMode ? "Clinical workspace" : "Sattva health"}</div><div className="topbar-actions"><button className="icon-button theme-toggle-btn" onClick={toggleTheme} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"} title={theme === "dark" ? "Light appearance" : "Dark appearance"}><Icon name={theme === "dark" ? "sun" : "moon"}/></button><button className="icon-button" aria-label="Notifications" title="Notifications"><Icon name="bell"/></button><Link to="/login" className="user-chip"><span>{initials}</span><b>{activeUser}</b></Link></div></header><main className="app-content">{children}</main></div>
+    <div className="app-frame"><header className="app-topbar"><button className="icon-button menu-trigger" onClick={() => setOpen(!open)} aria-label="Toggle navigation"><Icon name="menu"/></button><div className="crumb">{doctorMode ? t("nav.clinicalWorkspace") : t("nav.sattvaHealth")}</div><div className="topbar-actions"><LanguageSelector /><button className="icon-button theme-toggle-btn" onClick={toggleTheme} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"} title={theme === "dark" ? "Light appearance" : "Dark appearance"}><Icon name={theme === "dark" ? "sun" : "moon"}/></button><button className="icon-button" aria-label="Notifications" title="Notifications"><Icon name="bell"/></button><Link to="/login" className="user-chip" title="Account settings"><span>{initials}</span><b>{activeUser}</b></Link></div></header><main className="app-content">{children}</main></div>
   </div>;
 }

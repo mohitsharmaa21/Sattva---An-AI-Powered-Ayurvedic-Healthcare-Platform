@@ -1,15 +1,18 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { useLanguage } from "../context/LanguageContext";
 
 export default function SafetyDisclaimer() {
+  const { t } = useLanguage();
+
   return (
     <div className="container" style={{ paddingBottom: "100px", maxWidth: "900px", margin: "0 auto" }}>
       <div className="page-header" style={{ marginBottom: "40px", textAlign: "center" }}>
         <h1 className="page-title" style={{ fontSize: "36px" }}>
-          Safety, Precautions & Legal Disclaimer
+          {t("policies.safetyTitle")}
         </h1>
         <p className="page-subtitle" style={{ maxWidth: "680px", margin: "0 auto" }}>
-          Important healthcare, pharmacological, and regulatory information regarding the use of the Sattva platform.
+          {t("policies.safetySubtitle")}
         </p>
       </div>
 
@@ -34,13 +37,10 @@ export default function SafetyDisclaimer() {
           </svg>
           <div>
             <h2 style={{ fontSize: "19px", color: "#8a4506", margin: "0 0 10px" }}>
-              General Wellness & Non-Medical Advice Disclaimer
+              {t("footer.disclaimerBannerTitle")}
             </h2>
             <p style={{ fontSize: "14.5px", color: "#6e3c10", lineHeight: 1.7, margin: "0 0 12px" }}>
-              Sattva provides general wellness information based on traditional Ayurveda and available scientific research. The information provided is for educational and informational purposes only and is not intended to diagnose, treat, cure, or prevent any disease or medical condition. Sattva does not replace consultation with a qualified healthcare professional.
-            </p>
-            <p style={{ fontSize: "14.5px", color: "#6e3c10", lineHeight: 1.7, margin: 0 }}>
-              Herbal and Ayurvedic products may have contraindications, interactions, or risks that vary between individuals and formulations. Consult a qualified healthcare professional before using any product, particularly if you are pregnant, breastfeeding, taking medication, managing a medical condition, or considering use for a child.
+              {t("footer.disclaimerBannerText")}
             </p>
           </div>
         </div>

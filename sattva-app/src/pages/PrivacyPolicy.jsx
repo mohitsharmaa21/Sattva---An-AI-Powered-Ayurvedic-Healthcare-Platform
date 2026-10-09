@@ -1,14 +1,17 @@
 import { motion } from "framer-motion";
+import { useLanguage } from "../context/LanguageContext";
 
 export default function PrivacyPolicy() {
+  const { t } = useLanguage();
+
   return (
     <div className="container" style={{ paddingBottom: "100px", maxWidth: "860px", margin: "0 auto" }}>
       <div className="page-header" style={{ marginBottom: "40px", textAlign: "center" }}>
         <h1 className="page-title" style={{ fontSize: "36px" }}>
-          Privacy Policy
+          {t("policies.privacyTitle")}
         </h1>
         <p className="page-subtitle" style={{ maxWidth: "600px", margin: "0 auto" }}>
-          Transparent privacy disclosure for the Sattva healthcare & wellness platform.
+          {t("policies.privacySubtitle")}
         </p>
       </div>
 

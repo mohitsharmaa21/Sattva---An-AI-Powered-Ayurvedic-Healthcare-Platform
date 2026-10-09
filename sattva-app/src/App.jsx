@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import { LanguageProvider } from "./context/LanguageContext";
 
 import Home from "./pages/Home";
 import Blogs from "./pages/Blogs";
@@ -31,36 +32,38 @@ const ProductRoute = ({ children }) => <AppShell>{children}</AppShell>;
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <Navbar />
-      <main className="main-layout">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/consultation" element={<ProductRoute><Doctors /></ProductRoute>} />
-          <Route path="/doctors/:id" element={<ProductRoute><DoctorProfile /></ProductRoute>} />
-          <Route path="/ayurveda" element={<ProductRoute><Remedies /></ProductRoute>} />
-          <Route path="/blogs" element={<ProductRoute><Blogs /></ProductRoute>} />
-          <Route path="/ai-check" element={<ProductRoute><AI /></ProductRoute>} />
-          <Route path="/dashboard" element={<ProductRoute><Dashboard /></ProductRoute>} />
-          <Route path="/doctor-dashboard" element={<ProductRoute><DoctorDashboard /></ProductRoute>} />
-          <Route path="/history" element={<ProductRoute><SymptomHistory /></ProductRoute>} />
-          <Route path="/insurance" element={<ProductRoute><Insurance /></ProductRoute>} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/features" element={<Features />} />
-          <Route path="/how-it-works" element={<HowItWorks />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/vision" element={<Vision />} />
-          <Route path="/sources-evidence" element={<SourcesEvidence />} />
-          <Route path="/safety-disclaimer" element={<SafetyDisclaimer />} />
-          <Route path="/faqs" element={<FAQs />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/data-safety" element={<DataSafety />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
-      </main>
-      <Footer />
-    </BrowserRouter>
+    <LanguageProvider>
+      <BrowserRouter>
+        <ScrollToTop />
+        <Navbar />
+        <main className="main-layout">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/consultation" element={<ProductRoute><Doctors /></ProductRoute>} />
+            <Route path="/doctors/:id" element={<ProductRoute><DoctorProfile /></ProductRoute>} />
+            <Route path="/ayurveda" element={<ProductRoute><Remedies /></ProductRoute>} />
+            <Route path="/blogs" element={<ProductRoute><Blogs /></ProductRoute>} />
+            <Route path="/ai-check" element={<ProductRoute><AI /></ProductRoute>} />
+            <Route path="/dashboard" element={<ProductRoute><Dashboard /></ProductRoute>} />
+            <Route path="/doctor-dashboard" element={<ProductRoute><DoctorDashboard /></ProductRoute>} />
+            <Route path="/history" element={<ProductRoute><SymptomHistory /></ProductRoute>} />
+            <Route path="/insurance" element={<ProductRoute><Insurance /></ProductRoute>} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/features" element={<Features />} />
+            <Route path="/how-it-works" element={<HowItWorks />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/vision" element={<Vision />} />
+            <Route path="/sources-evidence" element={<SourcesEvidence />} />
+            <Route path="/safety-disclaimer" element={<SafetyDisclaimer />} />
+            <Route path="/faqs" element={<FAQs />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/data-safety" element={<DataSafety />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </main>
+        <Footer />
+      </BrowserRouter>
+    </LanguageProvider>
   );
 }

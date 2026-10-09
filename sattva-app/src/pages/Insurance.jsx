@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "../context/LanguageContext";
 
 export default function Insurance() {
+  const { t } = useLanguage();
   const [age, setAge] = useState(30);
   const [bmi, setBmi] = useState(22);
   const [smoker, setSmoker] = useState(false);
@@ -67,6 +69,13 @@ export default function Insurance() {
     }, 1200);
   };
 
+  const conditionLabels = {
+    diabetes: t("insurance.conditionsList.diabetes", "Diabetes"),
+    hypertension: t("insurance.conditionsList.hypertension", "Hypertension"),
+    asthma: t("insurance.conditionsList.asthma", "Asthma"),
+    jointPain: t("insurance.conditionsList.jointPain", "Joint Pain"),
+  };
+
   return (
     <section
       className="section"
@@ -88,7 +97,7 @@ export default function Insurance() {
                 marginBottom: "16px",
               }}
             >
-              Insurance Risk Actuary
+              {t("insurance.pageTitle")}
             </h2>
             <p
               style={{
@@ -98,9 +107,7 @@ export default function Insurance() {
                 fontSize: "15px",
               }}
             >
-              Calculate your estimated health insurance risk premium based on
-              standard underwriting factors. We will provide preemptive
-              Ayurvedic strategies to lower your risk profile.
+              {t("insurance.pageSubtitle")}
             </p>
 
             <div
@@ -118,8 +125,8 @@ export default function Insurance() {
                     color: "var(--text)",
                   }}
                 >
-                  <span>User Age</span>
-                  <span>{age} years</span>
+                  <span>{t("insurance.userAge")}</span>
+                  <span>{age} {t("insurance.years")}</span>
                 </label>
                 <input
                   type="range"
@@ -147,7 +154,7 @@ export default function Insurance() {
                     color: "var(--text)",
                   }}
                 >
-                  <span>Body Mass Index (BMI)</span>
+                  <span>{t("insurance.bmiLabel")}</span>
                   <span>{bmi}</span>
                 </label>
                 <input
@@ -184,7 +191,7 @@ export default function Insurance() {
                     color: "var(--text)",
                   }}
                 >
-                  Tobacco / Nicotine Usage
+                  {t("insurance.tobaccoUsage")}
                 </span>
                 <button
                   onClick={() => setSmoker(!smoker)}
@@ -200,7 +207,7 @@ export default function Insurance() {
                     transition: "all 0.2s ease"
                   }}
                 >
-                  {smoker ? "YES" : "NO"}
+                  {smoker ? t("common.yes", "YES") : t("common.no", "NO")}
                 </button>
               </div>
 
@@ -214,7 +221,7 @@ export default function Insurance() {
                     color: "var(--text)",
                   }}
                 >
-                  Pre-existing Conditions
+                  {t("insurance.preExistingConditions")}
                 </p>
                 <div
                   style={{
@@ -248,7 +255,7 @@ export default function Insurance() {
                         transition: "all 0.2s ease",
                       }}
                     >
-                      {cond.replace(/([A-Z])/g, " $1").trim()}
+                      {conditionLabels[cond] || cond}
                     </button>
                   ))}
                 </div>
@@ -268,8 +275,8 @@ export default function Insurance() {
                 }}
               >
                 {isCalculating
-                  ? "Running Underwriting Engine..."
-                  : "Calculate Risk Profile"}
+                  ? t("insurance.calculating")
+                  : t("insurance.calculateBtn")}
               </button>
             </div>
           </motion.div>
@@ -305,7 +312,7 @@ export default function Insurance() {
                       color: "var(--muted)",
                     }}
                   >
-                    Underwriting Complete
+                    {t("insurance.underwritingComplete")}
                   </h3>
                   <h2
                     style={{ margin: 0, fontSize: "28px", color: result.color }}
@@ -326,7 +333,7 @@ export default function Insurance() {
                     fontWeight: 600,
                   }}
                 >
-                  Recalculate
+                  {t("insurance.recalculate")}
                 </button>
               </div>
 
@@ -352,7 +359,7 @@ export default function Insurance() {
                       marginBottom: "4px",
                     }}
                   >
-                    Estimated Premium Impact
+                    {t("insurance.estimatedPremiumImpact")}
                   </div>
                   <div
                     style={{
@@ -384,7 +391,7 @@ export default function Insurance() {
                     color: "var(--primary)",
                   }}
                 >
-                  Ayurvedic Mitigation Strategy
+                  {t("insurance.mitigationStrategy")}
                 </h4>
                 <div
                   style={{
@@ -410,7 +417,7 @@ export default function Insurance() {
                   borderRadius: "10px",
                 }}
               >
-                Connect with an Ayurvedic Doctor to lower risk
+                {t("insurance.connectDoctorToLowerRisk")}
               </button>
             </motion.div>
           )}

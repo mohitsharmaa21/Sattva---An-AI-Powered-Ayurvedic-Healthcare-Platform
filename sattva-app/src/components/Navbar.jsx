@@ -2,10 +2,13 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "../utils/theme";
+import { useLanguage } from "../context/LanguageContext";
+import LanguageSelector from "./LanguageSelector";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const { t } = useLanguage();
   const { pathname } = useLocation();
   if (["/consultation", "/ayurveda", "/blogs", "/ai-check", "/dashboard", "/doctor-dashboard", "/history", "/insurance"].some((path) => pathname.startsWith(path))) return null;
 
@@ -13,17 +16,18 @@ export default function Navbar() {
     <div className="navbar-container">
       <header className="navbar-pill">
         <Link to="/" className="navbar-logo">
-          SATTVA
+          {t("common.appName", "SATTVA")}
         </Link>
 
         <nav className="nav-links-desktop">
-          <Link to="/">Home</Link>
-          <Link to="/consultation">Consultation</Link>
-          <Link to="/ayurveda">Ayurveda</Link>
-          <Link to="/blogs">Blogs</Link>
+          <Link to="/">{t("nav.home")}</Link>
+          <Link to="/consultation">{t("nav.consultation")}</Link>
+          <Link to="/ayurveda">{t("nav.ayurveda")}</Link>
+          <Link to="/blogs">{t("nav.blogs")}</Link>
         </nav>
 
         <div className="nav-actions-desktop" style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <LanguageSelector />
           <button
             className="icon-button"
             onClick={toggleTheme}
@@ -60,7 +64,7 @@ export default function Navbar() {
             )}
           </button>
           <Link to="/login" className="nav-login-btn">
-            Profile / Login
+            {t("nav.profileLogin")}
           </Link>
         </div>
 
@@ -101,23 +105,26 @@ export default function Navbar() {
           >
             <nav className="mobile-nav-links">
               <Link to="/" onClick={() => setMobileOpen(false)}>
-                Home
+                {t("nav.home")}
               </Link>
               <Link to="/consultation" onClick={() => setMobileOpen(false)}>
-                Consultation
+                {t("nav.consultation")}
               </Link>
               <Link to="/ayurveda" onClick={() => setMobileOpen(false)}>
-                Ayurveda
+                {t("nav.ayurveda")}
               </Link>
               <Link to="/blogs" onClick={() => setMobileOpen(false)}>
-                Blogs
+                {t("nav.blogs")}
               </Link>
+              <div style={{ padding: "8px 0", display: "flex", gap: "10px", alignItems: "center" }}>
+                <LanguageSelector />
+              </div>
               <Link
                 to="/login"
                 onClick={() => setMobileOpen(false)}
                 style={{ color: "var(--primary)", fontWeight: 600 }}
               >
-                Profile / Login
+                {t("nav.profileLogin")}
               </Link>
             </nav>
           </motion.div>

@@ -1,8 +1,10 @@
 import { Link, useLocation } from "react-router-dom";
 import sattvaLogo from "../assets/sattva-logo.png";
+import { useLanguage } from "../context/LanguageContext";
 
 export default function Footer() {
   const { pathname } = useLocation();
+  const { t } = useLanguage();
 
   // Hide footer on full-screen dashboard app shell views
   const isAppShellRoute = [
@@ -59,7 +61,7 @@ export default function Footer() {
                     letterSpacing: "1px",
                   }}
                 >
-                  SATTVA
+                  {t("common.appName", "SATTVA")}
                 </h3>
                 <span
                   style={{
@@ -68,7 +70,7 @@ export default function Footer() {
                     fontWeight: 600,
                   }}
                 >
-                  Intelligent Ayurveda & Wellness Guidance
+                  {t("footer.brandTagline")}
                 </span>
               </div>
             </div>
@@ -82,7 +84,7 @@ export default function Footer() {
                 maxWidth: "360px",
               }}
             >
-              Sattva combines traditional Ayurveda knowledge with modern technology to provide accessible, personalized wellness guidance.
+              {t("footer.brandDesc")}
             </p>
 
             <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginTop: "4px" }}>
@@ -98,7 +100,7 @@ export default function Footer() {
                   gap: "6px",
                 }}
               >
-                <span>→</span> View Sources & Evidence
+                {t("footer.sourcesEvidenceLink")}
               </Link>
               <Link
                 to="/safety-disclaimer"
@@ -112,7 +114,7 @@ export default function Footer() {
                   gap: "6px",
                 }}
               >
-                <span>→</span> Read Safety & Disclaimer
+                {t("footer.safetyDisclaimerLink")}
               </Link>
             </div>
           </div>
@@ -129,13 +131,13 @@ export default function Footer() {
                 marginBottom: "4px",
               }}
             >
-              Platform
+              {t("footer.platformHeader")}
             </div>
-            <Link to="/ai-check" className="footer-nav-link">AI Check</Link>
-            <Link to="/dashboard" className="footer-nav-link">Wellness Dashboard</Link>
-            <Link to="/ayurveda" className="footer-nav-link">Ayurveda Directory</Link>
-            <Link to="/history" className="footer-nav-link">Health History</Link>
-            <Link to="/how-it-works" className="footer-nav-link">How It Works</Link>
+            <Link to="/ai-check" className="footer-nav-link">{t("nav.aiCheck")}</Link>
+            <Link to="/dashboard" className="footer-nav-link">{t("home.quickActions.dashboard")}</Link>
+            <Link to="/ayurveda" className="footer-nav-link">{t("footer.platformLinks.ayurveda")}</Link>
+            <Link to="/history" className="footer-nav-link">{t("nav.healthHistory")}</Link>
+            <Link to="/how-it-works" className="footer-nav-link">{t("footer.platformLinks.howItWorks")}</Link>
           </div>
 
           {/* 3. INFORMATION */}
@@ -150,12 +152,12 @@ export default function Footer() {
                 marginBottom: "4px",
               }}
             >
-              Information
+              {t("footer.informationHeader")}
             </div>
-            <Link to="/about" className="footer-nav-link">About Sattva</Link>
-            <Link to="/sources-evidence" className="footer-nav-link">Sources & Evidence</Link>
-            <Link to="/safety-disclaimer" className="footer-nav-link">Safety & Disclaimer</Link>
-            <Link to="/faqs" className="footer-nav-link">FAQs</Link>
+            <Link to="/about" className="footer-nav-link">{t("footer.informationLinks.about")}</Link>
+            <Link to="/sources-evidence" className="footer-nav-link">{t("footer.informationLinks.sourcesEvidence")}</Link>
+            <Link to="/safety-disclaimer" className="footer-nav-link">{t("footer.informationLinks.safetyDisclaimer")}</Link>
+            <Link to="/faqs" className="footer-nav-link">{t("footer.informationLinks.faqs")}</Link>
           </div>
 
           {/* 4. LEGAL & PRIVACY */}
@@ -170,16 +172,16 @@ export default function Footer() {
                 marginBottom: "4px",
               }}
             >
-              Legal & Privacy
+              {t("footer.legalHeader")}
             </div>
-            <Link to="/privacy-policy" className="footer-nav-link">Privacy Policy</Link>
-            <Link to="/terms" className="footer-nav-link">Terms & Conditions</Link>
-            <Link to="/data-safety" className="footer-nav-link">Data & Document Safety</Link>
-            <Link to="/contact" className="footer-nav-link">Contact & Feedback</Link>
+            <Link to="/privacy-policy" className="footer-nav-link">{t("footer.legalLinks.privacyPolicy")}</Link>
+            <Link to="/terms" className="footer-nav-link">{t("footer.legalLinks.terms")}</Link>
+            <Link to="/data-safety" className="footer-nav-link">{t("footer.legalLinks.dataSafety")}</Link>
+            <Link to="/contact" className="footer-nav-link">{t("footer.informationLinks.contact")}</Link>
           </div>
         </div>
 
-        {/* SUBTLE WELLNESS & REGULATORY DISCLAIMER SECTION (Section 5, 8, 9) */}
+        {/* SUBTLE WELLNESS & REGULATORY DISCLAIMER SECTION */}
         <div
           style={{
             borderTop: "1px solid var(--line)",
@@ -203,18 +205,12 @@ export default function Footer() {
             }}
           >
             <p style={{ margin: 0 }}>
-              <strong>General Wellness Disclaimer:</strong> Sattva provides general wellness information based on traditional Ayurveda and available scientific research. The information provided is for educational and informational purposes only and is not intended to diagnose, treat, cure, or prevent any disease or medical condition. Sattva does not replace consultation with a qualified healthcare professional.
-            </p>
-            <p style={{ margin: 0 }}>
-              <strong>Herbal Safety & Precautions:</strong> Herbal and Ayurvedic products may have contraindications, interactions, or risks that vary between individuals and formulations. Consult a qualified healthcare professional before using any product, particularly if you are pregnant, breastfeeding, taking medication, managing a medical condition, or considering use for a child.
-            </p>
-            <p style={{ margin: 0 }}>
-              <strong>Third-Party Formulations & AI Assessment Notice:</strong> Product information on Sattva refers to classical and third-party Ayurvedic formulations; Sattva does not manufacture, prescribe, or distribute pharmaceuticals. Wellness assessments and recommendations generated by Sattva AI are informational and should not be interpreted as medical diagnosis, clinical prescription, or emergency medical advice.
+              <strong>{t("footer.disclaimerBannerTitle")}:</strong> {t("footer.disclaimerBannerText")}
             </p>
           </div>
         </div>
 
-        {/* BOTTOM COPYRIGHT BAR (Section 10) */}
+        {/* BOTTOM COPYRIGHT BAR */}
         <div
           style={{
             borderTop: "1px solid var(--line)",
@@ -229,7 +225,7 @@ export default function Footer() {
             color: "var(--muted)",
           }}
         >
-          <div>&copy; 2026 Sattva. All rights reserved.</div>
+          <div>{t("footer.copyright")}</div>
 
           <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
             <Link
@@ -238,7 +234,7 @@ export default function Footer() {
               onMouseEnter={(e) => (e.currentTarget.style.color = "var(--green)")}
               onMouseLeave={(e) => (e.currentTarget.style.color = "var(--muted)")}
             >
-              Privacy Policy
+              {t("footer.legalLinks.privacyPolicy")}
             </Link>
             <Link
               to="/terms"
@@ -246,7 +242,7 @@ export default function Footer() {
               onMouseEnter={(e) => (e.currentTarget.style.color = "var(--green)")}
               onMouseLeave={(e) => (e.currentTarget.style.color = "var(--muted)")}
             >
-              Terms & Conditions
+              {t("footer.legalLinks.terms")}
             </Link>
             <Link
               to="/safety-disclaimer"
@@ -254,7 +250,7 @@ export default function Footer() {
               onMouseEnter={(e) => (e.currentTarget.style.color = "var(--green)")}
               onMouseLeave={(e) => (e.currentTarget.style.color = "var(--muted)")}
             >
-              Safety & Disclaimer
+              {t("footer.informationLinks.safetyDisclaimer")}
             </Link>
           </div>
         </div>

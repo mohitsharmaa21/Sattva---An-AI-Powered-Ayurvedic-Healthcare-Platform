@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useLanguage } from "../context/LanguageContext";
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
+  const { t } = useLanguage();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -14,10 +16,10 @@ export default function Contact() {
     <div className="container" style={{ paddingBottom: "100px", maxWidth: "860px", margin: "0 auto" }}>
       <div className="page-header" style={{ marginBottom: "40px", textAlign: "center" }}>
         <h1 className="page-title" style={{ fontSize: "36px" }}>
-          Contact & Project Feedback
+          {t("policies.contactTitle")}
         </h1>
         <p className="page-subtitle" style={{ maxWidth: "600px", margin: "0 auto" }}>
-          Get in touch with the Sattva research and engineering team.
+          {t("policies.contactSubtitle")}
         </p>
       </div>
 

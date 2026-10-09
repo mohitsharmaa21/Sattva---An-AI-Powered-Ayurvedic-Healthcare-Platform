@@ -1,15 +1,18 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { useLanguage } from "../context/LanguageContext";
 
 export default function SourcesEvidence() {
+  const { t } = useLanguage();
+
   return (
     <div className="container" style={{ paddingBottom: "100px", maxWidth: "900px", margin: "0 auto" }}>
       <div className="page-header" style={{ marginBottom: "40px", textAlign: "center" }}>
         <h1 className="page-title" style={{ fontSize: "36px" }}>
-          Sources & Evidence Framework
+          {t("policies.sourcesTitle")}
         </h1>
         <p className="page-subtitle" style={{ maxWidth: "680px", margin: "0 auto" }}>
-          How Sattva reviews, categorizes, and audits traditional Ayurvedic literature alongside contemporary peer-reviewed scientific clinical trials.
+          {t("policies.sourcesSubtitle")}
         </p>
       </div>
 

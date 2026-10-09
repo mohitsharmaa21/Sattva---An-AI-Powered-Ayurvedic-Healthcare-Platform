@@ -1,15 +1,18 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { useLanguage } from "../context/LanguageContext";
 
 export default function Terms() {
+  const { t } = useLanguage();
+
   return (
     <div className="container" style={{ paddingBottom: "100px", maxWidth: "860px", margin: "0 auto" }}>
       <div className="page-header" style={{ marginBottom: "40px", textAlign: "center" }}>
         <h1 className="page-title" style={{ fontSize: "36px" }}>
-          Terms & Conditions
+          {t("policies.termsTitle")}
         </h1>
         <p className="page-subtitle" style={{ maxWidth: "600px", margin: "0 auto" }}>
-          Terms of service and usage conditions for the Sattva platform.
+          {t("policies.termsSubtitle")}
         </p>
       </div>
 
