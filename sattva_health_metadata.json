@@ -1,0 +1,48 @@
+{
+    "model_name": "XGBoost",
+    "target": "health_condition",
+    "classes": [
+        "at-risk",
+        "fit",
+        "unhealthy"
+    ],
+    "feature_columns": [
+        "sleep_duration",
+        "heart_rate",
+        "bmi",
+        "calorie_expenditure",
+        "step_count",
+        "exercise_duration",
+        "water_intake",
+        "diet_type",
+        "sleep_quality",
+        "smoking_alcohol",
+        "gender",
+        "stress_level",
+        "physical_activity_level"
+    ],
+    "numeric_features": [
+        "sleep_duration",
+        "heart_rate",
+        "bmi",
+        "calorie_expenditure",
+        "step_count",
+        "exercise_duration",
+        "water_intake"
+    ],
+    "categorical_features": [
+        "diet_type",
+        "sleep_quality",
+        "smoking_alcohol",
+        "gender",
+        "stress_level",
+        "physical_activity_level"
+    ],
+    "excluded_features": [
+        "student_id",
+        "timestamp"
+    ],
+    "test_accuracy": 0.999796541200407,
+    "test_balanced_accuracy": 0.9993101760955981,
+    "test_macro_f1": 0.9993101760955981
+}
