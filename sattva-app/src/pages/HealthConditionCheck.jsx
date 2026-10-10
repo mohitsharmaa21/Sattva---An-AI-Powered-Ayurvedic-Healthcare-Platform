@@ -353,7 +353,7 @@ export default function HealthConditionCheck() {
                   <input
                     id="sleep_duration"
                     type="number"
-                    step="0.1"
+                    step="any"
                     min="1"
                     max="24"
                     value={formData.sleep_duration}
@@ -375,7 +375,7 @@ export default function HealthConditionCheck() {
                   <input
                     id="heart_rate"
                     type="number"
-                    step="1"
+                    step="any"
                     min="35"
                     max="220"
                     value={formData.heart_rate}
@@ -395,7 +395,7 @@ export default function HealthConditionCheck() {
                   <input
                     id="bmi"
                     type="number"
-                    step="0.1"
+                    step="any"
                     min="10"
                     max="65"
                     value={formData.bmi}
@@ -415,7 +415,7 @@ export default function HealthConditionCheck() {
                   <input
                     id="water_intake"
                     type="number"
-                    step="0.1"
+                    step="any"
                     min="0.2"
                     max="15"
                     value={formData.water_intake}
@@ -448,7 +448,7 @@ export default function HealthConditionCheck() {
                   <input
                     id="step_count"
                     type="number"
-                    step="100"
+                    step="any"
                     min="0"
                     max="90000"
                     value={formData.step_count}
@@ -468,7 +468,7 @@ export default function HealthConditionCheck() {
                   <input
                     id="exercise_duration"
                     type="number"
-                    step="5"
+                    step="any"
                     min="0"
                     max="720"
                     value={formData.exercise_duration}
@@ -490,7 +490,7 @@ export default function HealthConditionCheck() {
                   <input
                     id="calorie_expenditure"
                     type="number"
-                    step="50"
+                    step="any"
                     min="600"
                     max="10000"
                     value={formData.calorie_expenditure}
