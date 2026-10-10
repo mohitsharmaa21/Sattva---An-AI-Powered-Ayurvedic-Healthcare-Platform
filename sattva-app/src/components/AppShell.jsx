@@ -5,6 +5,7 @@ import { getActiveUser, getUserInitials } from "../utils/user";
 import { useTheme } from "../utils/theme";
 import { useLanguage } from "../context/LanguageContext";
 import LanguageSelector from "./LanguageSelector";
+import NotificationCenter from "./NotificationCenter";
 
 const Icon = ({ name, size = 18 }) => {
   const paths = {
@@ -64,6 +65,6 @@ export default function AppShell({ children }) {
       <nav>{doctorMode ? <NavLink to="/doctor-dashboard" className="side-link"><Icon name="users"/>{t("nav.doctorWorkspace")}</NavLink> : items.map(([to, label, icon]) => <NavLink key={to} to={to} onClick={() => setOpen(false)} className="side-link"><Icon name={icon}/><span>{label}</span></NavLink>)}</nav>
       <div className="sidebar-bottom"><NavLink to="/login" className="side-link"><Icon name="settings"/><span>{t("nav.accountSettings")}</span></NavLink><p>{t("nav.disclaimerCaption")}</p></div>
     </aside>
-    <div className="app-frame"><header className="app-topbar"><button className="icon-button menu-trigger" onClick={() => setOpen(!open)} aria-label="Toggle navigation"><Icon name="menu"/></button><div className="crumb">{doctorMode ? t("nav.clinicalWorkspace") : t("nav.sattvaHealth")}</div><div className="topbar-actions"><LanguageSelector /><button className="icon-button theme-toggle-btn" onClick={toggleTheme} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"} title={theme === "dark" ? "Light appearance" : "Dark appearance"}><Icon name={theme === "dark" ? "sun" : "moon"}/></button><button className="icon-button" aria-label="Notifications" title="Notifications"><Icon name="bell"/></button><Link to="/login" className="user-chip" title="Account settings"><span>{initials}</span><b>{activeUser}</b></Link></div></header><main className="app-content">{children}</main></div>
+    <div className="app-frame"><header className="app-topbar"><button className="icon-button menu-trigger" onClick={() => setOpen(!open)} aria-label="Toggle navigation"><Icon name="menu"/></button><div className="crumb">{doctorMode ? t("nav.clinicalWorkspace") : t("nav.sattvaHealth")}</div><div className="topbar-actions"><LanguageSelector /><button className="icon-button theme-toggle-btn" onClick={toggleTheme} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"} title={theme === "dark" ? "Light appearance" : "Dark appearance"}><Icon name={theme === "dark" ? "sun" : "moon"}/></button><NotificationCenter doctorMode={doctorMode} /><Link to="/login" className="user-chip" title="Account settings"><span>{initials}</span><b>{activeUser}</b></Link></div></header><main className="app-content">{children}</main></div>
   </div>;
 }
