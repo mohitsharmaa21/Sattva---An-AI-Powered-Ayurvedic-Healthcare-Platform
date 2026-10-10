@@ -2361,6 +2361,164 @@ body.dark-theme {
   font-size: 13px;
 }
 
+/* Dynamic Class Insights Panel */
+.class-insights-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.insight-section-heading {
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin: 0 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.biomarker-cards-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.biomarker-mini-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 14px;
+}
+
+.biomarker-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.biomarker-card-top span {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.biomarker-tag {
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(82, 183, 136, 0.15);
+  color: var(--primary);
+}
+.biomarker-tag.tag-optimal {
+  background: rgba(46, 125, 50, 0.12);
+  color: #2e7d32;
+}
+.biomarker-tag.tag-warning {
+  background: rgba(217, 119, 6, 0.12);
+  color: #d97706;
+}
+.biomarker-tag.tag-danger {
+  background: rgba(220, 38, 38, 0.12);
+  color: #dc2626;
+}
+
+.biomarker-mini-card p {
+  font-size: 11.5px;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Dinacharya Schedule */
+.dinacharya-box {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.dinacharya-step {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-size: 12px;
+  line-height: 1.45;
+}
+.dinacharya-step:last-child {
+  margin-bottom: 0;
+}
+.dinacharya-time {
+  font-weight: 750;
+  color: var(--primary);
+  min-width: 80px;
+  flex-shrink: 0;
+}
+.dinacharya-desc {
+  color: var(--ink);
+}
+
+/* Herbal Recommendations */
+.herbal-rec-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.herbal-rec-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 14px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.herbal-rec-card:hover {
+  border-color: var(--primary);
+  background: var(--surface);
+  transform: translateY(-1px);
+}
+.herbal-rec-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  display: block;
+}
+.herbal-rec-benefit {
+  font-size: 11px;
+  color: var(--muted);
+}
+.herbal-rec-grade {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(82, 183, 136, 0.15);
+  color: var(--primary);
+  white-space: nowrap;
+}
+
+.results-action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+}
+.results-action-buttons .primary-button,
+.results-action-buttons .secondary-button {
+  text-align: center;
+  justify-content: center;
+  padding: 11px;
+  font-size: 13px;
+}
+
 @media (max-width: 960px) {
   .condition-layout-grid {
     grid-template-columns: 1fr;

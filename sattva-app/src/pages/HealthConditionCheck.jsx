@@ -54,6 +54,63 @@ const PRESETS = {
   },
 };
 
+const CLASS_INSIGHTS = {
+  fit: {
+    categoryLabel: "Optimal Health & Vitality",
+    metrics: [
+      { label: "Circadian Rhythm", tag: "Optimal", tagClass: "tag-optimal", desc: "Sleep duration & restorative habits support daily cellular recovery and hormonal rhythm." },
+      { label: "Cardio-Metabolic", tag: "Balanced", tagClass: "tag-optimal", desc: "Resting heart rate and BMI indicators align within healthy, favorable bands." },
+      { label: "Physical Resilience", tag: "Active", tagClass: "tag-optimal", desc: "Consistent movement and regular activity sustain strong metabolic Agni." },
+    ],
+    dinacharya: [
+      { time: "Morning", action: "Surya Namaskar & warm lemon water to sustain digestive Agni." },
+      { time: "Midday", action: "Nourishing, freshly prepared seasonal whole meals (Ritucharya alignment)." },
+      { time: "Evening", action: "Calming meditation & Ojas-preserving herbal infusions (Brahmi / Chamomile)." },
+    ],
+    herbs: [
+      { name: "Ashwagandha", benefit: "Vitality & Strength (Bala)", grade: "Grade A" },
+      { name: "Amalaki", benefit: "Antioxidant & Immunity (Rasayana)", grade: "Grade A" },
+      { name: "Brahmi", benefit: "Cognitive Balance & Focus", grade: "Grade B" },
+    ],
+  },
+  "at-risk": {
+    categoryLabel: "Emerging Lifestyle Strain",
+    metrics: [
+      { label: "Sleep Recovery", tag: "Irregular", tagClass: "tag-warning", desc: "Fluctuating sleep cycles or elevated stress indicate restorative fatigue." },
+      { label: "Stress & Vata", tag: "Elevated", tagClass: "tag-warning", desc: "Elevated mental tension may aggravate Vata dosha and dampen digestive fire." },
+      { label: "Activity Deficit", tag: "Moderate", tagClass: "tag-warning", desc: "Inconsistent physical movement creates metabolic sluggishness." },
+    ],
+    dinacharya: [
+      { time: "Morning", action: "15 min Pranayama (Anulom Vilom) & 500ml warm water before breakfast." },
+      { time: "Midday", action: "Establish strict fixed meal timings; eliminate late-night snacking." },
+      { time: "Evening", action: "Digital detox 1 hr before bed; warm golden turmeric milk with Ashwagandha." },
+    ],
+    herbs: [
+      { name: "Ashwagandha", benefit: "Cortisol Modulation & Restorative Sleep", grade: "Grade A" },
+      { name: "Triphala", benefit: "Gentle Detox & Agni Regulation", grade: "Grade A" },
+      { name: "Tulsi", benefit: "Adaptogenic Stress Resilience", grade: "Grade B" },
+    ],
+  },
+  unhealthy: {
+    categoryLabel: "High Physiological Strain",
+    metrics: [
+      { label: "Sleep Deficit", tag: "High Strain", tagClass: "tag-danger", desc: "Restorative sleep deficit impairs immune response and daily cellular recovery." },
+      { label: "Cardio-Metabolic", tag: "Strained", tagClass: "tag-danger", desc: "Elevated resting vitals or sedentary lifestyle burden require corrective focus." },
+      { label: "Metabolic Agni", tag: "Impaired", tagClass: "tag-danger", desc: "Low movement and irregular habits may accumulate metabolic Ama." },
+    ],
+    dinacharya: [
+      { time: "Immediate", action: "Establish a non-negotiable 7–8 hour dark-room sleep schedule." },
+      { time: "Day Reset", action: "Warm, light, freshly cooked meals (Khichdi & Ginger infusion)." },
+      { time: "Clinical Step", action: "Schedule an intake consultation with a certified Ayurvedic doctor." },
+    ],
+    herbs: [
+      { name: "Triphala", benefit: "Deep Detoxification & Bowel Regularity", grade: "Grade A" },
+      { name: "Brahmi / Shankhpushpi", benefit: "Neuro-protection & Restful Sleep", grade: "Grade A" },
+      { name: "Guggulu", benefit: "Lipid & Metabolic Optimization", grade: "Grade B" },
+    ],
+  },
+};
+
 const INITIAL_FORM = {
   sleep_duration: 7.0,
   heart_rate: 72.0,
@@ -688,124 +745,124 @@ export default function HealthConditionCheck() {
               </div>
             )}
 
-            {result && !loading && badgeInfo && (
-              <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3 }}
-                className="prediction-display-wrap"
-              >
-                {/* Main Outcome Card */}
-                <div
-                  className="predicted-outcome-box"
-                  style={{
-                    backgroundColor: badgeInfo.bg,
-                    borderColor: badgeInfo.border,
-                  }}
+            {result && !loading && badgeInfo && (() => {
+              const currentClassKey = result.prediction?.toLowerCase() || "at-risk";
+              const classData = CLASS_INSIGHTS[currentClassKey] || CLASS_INSIGHTS["at-risk"];
+
+              return (
+                <motion.div
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="prediction-display-wrap"
                 >
-                  <span className="outcome-caption">
-                    {t(
-                      "conditionCheck.predictedStatus",
-                      "Predicted Health Condition"
-                    )}
-                  </span>
+                  {/* Main Outcome Card */}
                   <div
-                    className="outcome-headline"
-                    style={{ color: badgeInfo.color }}
+                    className="predicted-outcome-box"
+                    style={{
+                      backgroundColor: badgeInfo.bg,
+                      borderColor: badgeInfo.border,
+                    }}
                   >
-                    <span className="outcome-symbol">{badgeInfo.icon}</span>
-                    <span className="outcome-text">{badgeInfo.title}</span>
+                    <span className="outcome-caption">
+                      {t(
+                        "conditionCheck.predictedStatus",
+                        "Predicted Health Classification"
+                      )}
+                    </span>
+                    <div
+                      className="outcome-headline"
+                      style={{ color: badgeInfo.color }}
+                    >
+                      <span className="outcome-symbol">{badgeInfo.icon}</span>
+                      <span className="outcome-text">{badgeInfo.title}</span>
+                    </div>
+                    <p className="outcome-desc">{badgeInfo.desc}</p>
                   </div>
-                  <p className="outcome-desc">{badgeInfo.desc}</p>
-                </div>
 
-                {/* Probabilities Breakdown */}
-                <div className="probabilities-section">
-                  <h4>
-                    {t(
-                      "conditionCheck.probBreakdown",
-                      "Class Probability Breakdown"
-                    )}
-                  </h4>
-
-                  <div className="probability-bars-list">
-                    {Object.entries(result.probabilities || {}).map(
-                      ([className, prob]) => {
-                        const pct = Math.round(prob * 1000) / 10;
-                        const isWinner =
-                          className.toLowerCase() ===
-                          result.prediction?.toLowerCase();
-
-                        let barColor = "var(--primary)";
-                        if (className === "fit") barColor = "#2e7d32";
-                        else if (className === "at-risk") barColor = "#d97706";
-                        else if (className === "unhealthy") barColor = "#dc2626";
-
-                        return (
-                          <div
-                            key={className}
-                            className={`probability-item ${
-                              isWinner ? "is-winner" : ""
-                            }`}
-                          >
-                            <div className="prob-header">
-                              <span className="class-label">
-                                {className === "fit"
-                                  ? t("conditionCheck.statusFit", "Fit")
-                                  : className === "at-risk"
-                                  ? t("conditionCheck.statusAtRisk", "At-Risk")
-                                  : t("conditionCheck.statusUnhealthy", "Unhealthy")}
+                  {/* Class-Specific Insights Container */}
+                  <div className="class-insights-container">
+                    {/* 1. Biomarkers Evaluation */}
+                    <div className="insight-section">
+                      <h4 className="insight-section-heading">
+                        <span>📊</span> Key Physiological & Habit Indicators
+                      </h4>
+                      <div className="biomarker-cards-grid">
+                        {classData.metrics.map((m, idx) => (
+                          <div key={idx} className="biomarker-mini-card">
+                            <div className="biomarker-card-top">
+                              <span>{m.label}</span>
+                              <span className={`biomarker-tag ${m.tagClass}`}>
+                                {m.tag}
                               </span>
-                              <strong className="class-pct">{pct}%</strong>
                             </div>
-                            <div className="prob-bar-track">
-                              <div
-                                className="prob-bar-fill"
-                                style={{
-                                  width: `${Math.min(pct, 100)}%`,
-                                  backgroundColor: barColor,
-                                }}
-                              ></div>
-                            </div>
+                            <p>{m.desc}</p>
                           </div>
-                        );
-                      }
-                    )}
-                  </div>
-                </div>
+                        ))}
+                      </div>
+                    </div>
 
-                {/* Model Metadata Card */}
-                <div className="model-meta-card">
-                  <div className="meta-row">
-                    <span>Model:</span>
-                    <strong>{result.model_name || "XGBoost"}</strong>
-                  </div>
-                  <div className="meta-row">
-                    <span>Validation Accuracy:</span>
-                    <strong>99.98% (Synthetic Test Data)</strong>
-                  </div>
-                  <div className="meta-row">
-                    <span>Scope:</span>
-                    <span>Student Lifestyle & Health Dataset</span>
-                  </div>
-                  <p className="meta-note">
-                    {result.notice || t("conditionCheck.modelNotice")}
-                  </p>
-                </div>
+                    {/* 2. Dinacharya Daily Regimen */}
+                    <div className="insight-section">
+                      <h4 className="insight-section-heading">
+                        <span>🌿</span> Tailored Ayurvedic Daily Regimen (Dinacharya)
+                      </h4>
+                      <div className="dinacharya-box">
+                        {classData.dinacharya.map((d, idx) => (
+                          <div key={idx} className="dinacharya-step">
+                            <span className="dinacharya-time">{d.time}:</span>
+                            <span className="dinacharya-desc">{d.action}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
 
-                {/* Re-edit / Continue button */}
-                <button
-                  type="button"
-                  className="secondary-button recalculate-btn"
-                  onClick={() => {
-                    const el = document.querySelector(".condition-form");
-                    if (el) el.scrollIntoView({ behavior: "smooth" });
-                  }}
-                >
-                  {t("conditionCheck.editBtn", "Edit Inputs")}
-                </button>
-              </motion.div>
-            )}
+                    {/* 3. Evidence-Based Ayurvedic Herbs */}
+                    <div className="insight-section">
+                      <h4 className="insight-section-heading">
+                        <span>🌱</span> Evidence-Graded Herbal Supports
+                      </h4>
+                      <div className="herbal-rec-grid">
+                        {classData.herbs.map((h, idx) => (
+                          <Link
+                            key={idx}
+                            to="/remedies"
+                            className="herbal-rec-card"
+                            title="View in Remedies Database"
+                          >
+                            <div>
+                              <span className="herbal-rec-name">{h.name}</span>
+                              <span className="herbal-rec-benefit">{h.benefit}</span>
+                            </div>
+                            <span className="herbal-rec-grade">{h.grade}</span>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="results-action-buttons">
+                    <Link to="/remedies" className="primary-button">
+                      Explore Recommended Remedies →
+                    </Link>
+                    <Link to="/consultation" className="secondary-button">
+                      Schedule Doctor Consultation
+                    </Link>
+                    <button
+                      type="button"
+                      className="text-button recalculate-btn"
+                      onClick={() => {
+                        const el = document.querySelector(".condition-form");
+                        if (el) el.scrollIntoView({ behavior: "smooth" });
+                      }}
+                    >
+                      {t("conditionCheck.editBtn", "Edit Inputs / Re-evaluate")}
+                    </button>
+                  </div>
+                </motion.div>
+              );
+            })()}
           </div>
         </section>
       </div>
