@@ -38,7 +38,21 @@ export default function Dashboard() {
   const [showLocationModal, setShowLocationModal] = useState(false);
   const [customLocation, setCustomLocation] = useState("");
   const [activeUser, setActiveUser] = useState(() => getActiveUser());
-  const istInfo = getISTDetails();
+  const [istInfo] = useState(() => getISTDetails());
+  const [consultDates] = useState(() => {
+    const now = Date.now();
+    const fmt = (offsetDays) =>
+      new Intl.DateTimeFormat("en-IN", {
+        timeZone: "Asia/Kolkata",
+        day: "numeric",
+        month: "short",
+      }).format(new Date(now + offsetDays * 24 * 60 * 60 * 1000));
+    return {
+      nextConsultDate: fmt(2),
+      lastAICheckDate: fmt(-2),
+      pastReportDate: fmt(-9),
+    };
+  });
   const { t, language } = useLanguage();
 
   useEffect(() => {
@@ -89,7 +103,8 @@ export default function Dashboard() {
           }
         );
       } else {
-        setShowLocationModal(true);
+        const timer = setTimeout(() => setShowLocationModal(true), 0);
+        return () => clearTimeout(timer);
       }
     }
   }, []);
@@ -100,24 +115,7 @@ export default function Dashboard() {
   };
 
   const currentDateGregorian = istInfo.dateString;
-
-  const nextConsultDate = new Intl.DateTimeFormat('en-IN', {
-    timeZone: 'Asia/Kolkata',
-    day: 'numeric',
-    month: 'short'
-  }).format(new Date(Date.now() + 2 * 24 * 60 * 60 * 1000));
-
-  const lastAICheckDate = new Intl.DateTimeFormat('en-IN', {
-    timeZone: 'Asia/Kolkata',
-    day: 'numeric',
-    month: 'short'
-  }).format(new Date(Date.now() - 2 * 24 * 60 * 60 * 1000));
-
-  const pastReportDate = new Intl.DateTimeFormat('en-IN', {
-    timeZone: 'Asia/Kolkata',
-    day: 'numeric',
-    month: 'short'
-  }).format(new Date(Date.now() - 9 * 24 * 60 * 60 * 1000));
+  const { nextConsultDate, lastAICheckDate, pastReportDate } = consultDates;
 
   return <div className="dashboard-page">
     <header className="page-heading dashboard-heading"><div><span className="eyebrow">{currentDateGregorian} · {istInfo.timeString}</span><h1>{getLocalizedGreeting()}, {activeUser}</h1><p>{language === "hi" ? `आज के लिए आपका स्वास्थ्य अवलोकन (${istInfo.doshaPeriod})` : `Here’s your health overview for today (${istInfo.doshaPeriod}).`}</p></div><div className="heading-actions"><span className="data-note">{t("dashboard.simulatedData", "Simulated wellness data")}</span><Link className="primary-button" to="/ai-check">{t("nav.aiCheck")}</Link></div></header>

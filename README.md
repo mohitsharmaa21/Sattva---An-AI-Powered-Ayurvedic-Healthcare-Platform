@@ -224,6 +224,26 @@ npm run build
 
 ---
 
+## 🌐 Deploying to Vercel
+
+Sattva's frontend applications (`sattva-app` and `sattva-landing`) are pre-configured for one-click deployment on **Vercel** with full client-side SPA routing (`vercel.json` rewrites included in each directory).
+
+### Deploying `sattva-app` (Patient Web Portal)
+1. In the [Vercel Dashboard](https://vercel.com), click **Add New Project** and import this repository.
+2. Under **Root Directory**, click *Edit* and select `sattva-app`.
+3. In **Environment Variables**, configure:
+   - `VITE_HEALTH_ML_API_URL`: URL of your deployed ML backend (e.g. Render / Railway / AWS / Hugging Face Spaces). Defaults to `http://127.0.0.1:8000` if omitted.
+4. Click **Deploy**.
+
+### Deploying `sattva-landing` (Marketing Portal)
+1. In the [Vercel Dashboard](https://vercel.com), import this repository as a second project.
+2. Under **Root Directory**, select `sattva-landing`.
+3. Click **Deploy**.
+
+*(Note: The Python FastAPI service in `backend/ml_service` can be deployed independently to serverless/container platforms such as Render, Railway, Fly.io, or AWS Lambda).*
+
+---
+
 ## 🛡️ Responsible AI & Academic Disclaimer
 
 1. **Synthetic Training Data**: The machine learning model was trained and evaluated on a synthetic student lifestyle dataset. While displaying high benchmark accuracy on this distribution, it is an **academic prototype** and has not been clinically validated on real-world patient cohorts.

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { REMEDIES } from "../data/remediesData";
 import { useLanguage } from "../context/LanguageContext";
@@ -12,57 +12,48 @@ export default function Remedies() {
   const [categoryFilter, setCategoryFilter] = useState("");
   const [formFilter, setFormFilter] = useState("");
 
-  const [isFiltering, setIsFiltering] = useState(false);
-  const [filteredResults, setFilteredResults] = useState(REMEDIES);
-
   // Toast State
   const [toast, setToast] = useState(null);
 
-  useEffect(() => {
-    setIsFiltering(true);
-    const delay = setTimeout(() => {
-      let results = REMEDIES.map((rem) => {
-        let score = 0;
-        const q = searchQuery.toLowerCase().trim();
+  const filteredResults = useMemo(() => {
+    let results = REMEDIES.map((rem) => {
+      let score = 0;
+      const q = searchQuery.toLowerCase().trim();
 
-        if (q) {
-          const nameLower = rem.name.toLowerCase();
-          const commonLower = rem.commonName.toLowerCase();
-          const botanicalLower = rem.botanicalName.toLowerCase();
-          const descLower = rem.shortDescription.toLowerCase();
-          const tagMatches = rem.categoryTags.some((tag) =>
-            tag.toLowerCase().includes(q)
-          );
+      if (q) {
+        const nameLower = rem.name.toLowerCase();
+        const commonLower = rem.commonName.toLowerCase();
+        const botanicalLower = rem.botanicalName.toLowerCase();
+        const descLower = rem.shortDescription.toLowerCase();
+        const tagMatches = rem.categoryTags.some((tag) =>
+          tag.toLowerCase().includes(q)
+        );
 
-          if (nameLower === q) score += 100;
-          else if (nameLower.includes(q)) score += 50;
+        if (nameLower === q) score += 100;
+        else if (nameLower.includes(q)) score += 50;
 
-          if (botanicalLower.includes(q) || commonLower.includes(q)) score += 40;
-          if (tagMatches) score += 30;
-          if (descLower.includes(q)) score += 20;
+        if (botanicalLower.includes(q) || commonLower.includes(q)) score += 40;
+        if (tagMatches) score += 30;
+        if (descLower.includes(q)) score += 20;
 
-          if (score === 0) return null;
-        }
+        if (score === 0) return null;
+      }
 
-        const matchesCategory = categoryFilter
-          ? rem.categoryTags.includes(categoryFilter)
-          : true;
+      const matchesCategory = categoryFilter
+        ? rem.categoryTags.includes(categoryFilter)
+        : true;
 
-        const matchesForm = formFilter
-          ? rem.formulationType.toLowerCase().includes(formFilter.toLowerCase())
-          : true;
+      const matchesForm = formFilter
+        ? rem.formulationType.toLowerCase().includes(formFilter.toLowerCase())
+        : true;
 
-        if (!(matchesCategory && matchesForm)) return null;
+      if (!(matchesCategory && matchesForm)) return null;
 
-        return { ...rem, score };
-      }).filter(Boolean);
+      return { ...rem, score };
+    }).filter(Boolean);
 
-      results.sort((a, b) => b.score - a.score);
-      setFilteredResults(results);
-      setIsFiltering(false);
-    }, 250);
-
-    return () => clearTimeout(delay);
+    results.sort((a, b) => b.score - a.score);
+    return results;
   }, [searchQuery, categoryFilter, formFilter]);
 
   const clearFilters = () => {
@@ -255,17 +246,7 @@ export default function Remedies() {
       </div>
 
       {/* PRODUCT GRID */}
-      {isFiltering ? (
-        <div className="grid-4">
-          {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-            <div
-              key={i}
-              className="skeleton-box skeleton-card"
-              style={{ height: "300px", marginBottom: "0" }}
-            ></div>
-          ))}
-        </div>
-      ) : filteredResults.length > 0 ? (
+      {filteredResults.length > 0 ? (
         <div className="grid-4">
           <AnimatePresence>
             {filteredResults.map((rem, i) => {
