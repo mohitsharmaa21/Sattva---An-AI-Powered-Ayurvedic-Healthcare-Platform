@@ -1976,5 +1976,420 @@ body.dark-theme {
   color: #eff8f3 !important;
 }
 
+/* ===================================================
+   AI HEALTH CONDITION CHECK MODULE
+   =================================================== */
+.condition-check-page {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.condition-tag-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.status-pill .status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.pill-online {
+  background: rgba(46, 125, 50, 0.12);
+  color: #2e7d32;
+  border: 1px solid rgba(46, 125, 50, 0.28);
+}
+.pill-offline {
+  background: rgba(220, 38, 38, 0.12);
+  color: #dc2626;
+  border: 1px solid rgba(220, 38, 38, 0.28);
+}
+.pill-pending {
+  background: rgba(217, 119, 6, 0.12);
+  color: #d97706;
+  border: 1px solid rgba(217, 119, 6, 0.28);
+}
+
+.condition-page-sub {
+  font-size: 14px;
+  color: #69786f;
+  margin: 0 0 20px;
+  max-width: 780px;
+}
+
+.responsible-disclaimer-banner {
+  background: rgba(82, 183, 136, 0.08);
+  border: 1px solid rgba(116, 198, 157, 0.28);
+  border-left: 4px solid var(--primary);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 22px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.disclaimer-icon-wrap {
+  color: var(--primary);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.responsible-disclaimer-banner strong {
+  display: block;
+  font-size: 12.5px;
+  color: var(--green-deep);
+  margin-bottom: 4px;
+}
+.responsible-disclaimer-banner p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.55;
+  color: #4a5c53;
+}
+
+.presets-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+  padding: 12px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+.presets-label {
+  font-size: 12px;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin-right: 4px;
+}
+.preset-btn {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+.preset-btn:hover {
+  background: var(--primary);
+  color: #0d1510;
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.condition-layout-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.condition-form-panel {
+  display: flex;
+  flex-direction: column;
+}
+.form-section-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+.form-section-card .section-title {
+  font-size: 13.5px;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--primary);
+  margin: 0 0 16px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 8px;
+}
+
+.fields-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.fields-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.form-group label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.form-group .unit-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted);
+  margin-left: 4px;
+}
+.form-group input,
+.form-group select {
+  padding: 10px 12px;
+  border-radius: 9px;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  color: var(--ink);
+  font-size: 13.5px;
+  outline: none;
+  transition: all 0.18s ease;
+}
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(82, 183, 136, 0.2);
+}
+.form-group .field-hint {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.condition-error-alert {
+  background: rgba(220, 38, 38, 0.1);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  color: #dc2626;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.form-actions-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 4px;
+}
+.predict-submit-btn {
+  flex: 1;
+  padding: 13px 22px;
+  font-size: 14px;
+}
+
+.condition-results-panel {
+  position: sticky;
+  top: 90px;
+}
+.results-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+.results-card h2 {
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  margin: 0 0 16px;
+  color: var(--ink);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 10px;
+}
+
+.empty-results-state {
+  text-align: center;
+  padding: 40px 16px;
+  color: var(--muted);
+}
+.empty-icon-wrap {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 14px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+}
+.empty-results-state h3 {
+  font-size: 15px;
+  margin: 0 0 8px;
+  color: var(--ink);
+}
+.empty-results-state p {
+  font-size: 12.5px;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.loading-results-state {
+  text-align: center;
+  padding: 48px 16px;
+  color: var(--muted);
+}
+.loading-results-state .spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(82, 183, 136, 0.2);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 16px;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.predicted-outcome-box {
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 20px;
+}
+.outcome-caption {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  display: block;
+  margin-bottom: 6px;
+  opacity: 0.85;
+}
+.outcome-headline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 8px;
+}
+.outcome-desc {
+  font-size: 12.5px;
+  line-height: 1.5;
+  margin: 0;
+  color: var(--ink);
+}
+
+.probabilities-section {
+  margin-bottom: 20px;
+}
+.probabilities-section h4 {
+  font-size: 11.5px;
+  text-transform: uppercase;
+  font-weight: 750;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin: 0 0 12px;
+}
+.probability-item {
+  margin-bottom: 12px;
+}
+.probability-item.is-winner {
+  font-weight: 700;
+}
+.prob-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12.5px;
+  margin-bottom: 5px;
+  color: var(--ink);
+}
+.prob-bar-track {
+  height: 8px;
+  background: var(--surface-2);
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.prob-bar-fill {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.model-meta-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 12px;
+  margin-bottom: 16px;
+}
+.meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  color: var(--muted);
+}
+.meta-row strong {
+  color: var(--ink);
+}
+.meta-note {
+  margin: 10px 0 0;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.45;
+  font-style: italic;
+}
+
+.recalculate-btn {
+  width: 100%;
+  padding: 11px;
+  font-size: 13px;
+}
+
+@media (max-width: 960px) {
+  .condition-layout-grid {
+    grid-template-columns: 1fr;
+  }
+  .condition-results-panel {
+    position: static;
+  }
+}
+@media (max-width: 600px) {
+  .fields-grid-2,
+  .fields-grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Dark mode overrides for condition check */
+.dark-theme .responsible-disclaimer-banner {
+  background: rgba(82, 183, 136, 0.08) !important;
+  border-color: rgba(116, 198, 157, 0.25) !important;
+}
+.dark-theme .responsible-disclaimer-banner strong {
+  color: #74c69d !important;
+}
+.dark-theme .responsible-disclaimer-banner p {
+  color: #d1e5db !important;
+}
+.dark-theme .condition-page-sub {
+  color: #b0c5ba !important;
+}
+
 
 

@@ -10,7 +10,7 @@ export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const { t } = useLanguage();
   const { pathname } = useLocation();
-  if (["/consultation", "/ayurveda", "/blogs", "/ai-check", "/dashboard", "/doctor-dashboard", "/history", "/insurance"].some((path) => pathname.startsWith(path))) return null;
+  if (["/consultation", "/ayurveda", "/blogs", "/ai-check", "/dashboard", "/doctor-dashboard", "/history", "/insurance", "/health-condition"].some((path) => pathname.startsWith(path))) return null;
 
   return (
     <div className="navbar-container">

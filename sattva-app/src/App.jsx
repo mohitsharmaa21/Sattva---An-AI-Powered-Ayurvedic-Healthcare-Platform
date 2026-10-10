@@ -17,6 +17,7 @@ import Dashboard from "./pages/Dashboard";
 import DoctorDashboard from "./pages/DoctorDashboard";
 import SymptomHistory from "./pages/SymptomHistory";
 import Insurance from "./pages/Insurance";
+import HealthConditionCheck from "./pages/HealthConditionCheck";
 import Login from "./pages/Login";
 import SourcesEvidence from "./pages/SourcesEvidence";
 import SafetyDisclaimer from "./pages/SafetyDisclaimer";
@@ -48,6 +49,7 @@ export default function App() {
             <Route path="/doctor-dashboard" element={<ProductRoute><DoctorDashboard /></ProductRoute>} />
             <Route path="/history" element={<ProductRoute><SymptomHistory /></ProductRoute>} />
             <Route path="/insurance" element={<ProductRoute><Insurance /></ProductRoute>} />
+            <Route path="/health-condition" element={<ProductRoute><HealthConditionCheck /></ProductRoute>} />
             <Route path="/login" element={<Login />} />
             <Route path="/features" element={<Features />} />
             <Route path="/how-it-works" element={<HowItWorks />} />
