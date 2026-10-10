@@ -7,13 +7,19 @@
 
 ## 📖 About the Project
 
-Healthcare systems globally face severe challenges: **late detection**, **intake bottlenecks**, **information asymmetry**, and **cultural disconnect**. Patients frequently experience diffuse symptoms without knowing whether they need urgent allopathic evaluation, lifestyle correction, or holistic balancing.
+### The Problem
+The first mile of healthcare is fraught with friction for patients and clinicians alike:
+* **Information Overload & Anxiety**: Searching mild symptoms online often surfaces catastrophic worst-case scenarios, leaving patients stressed and disoriented before seeking professional guidance.
+* **Intake Bottlenecks**: Doctors spend significant portions of brief consultations taking fragmented intake histories and deciphering unstructured lab reports rather than delivering focused care.
+* **Siloed Medical Paradigms**: A sharp divide separates modern clinical triaging from traditional, preventative systems of medicine like Ayurveda, leaving patients without holistic lifestyle guidance grounded in clinical evidence.
 
-**Sattva** re-engineers this journey through a hybrid model:
-1. **Intelligent Intake & ML Triage**: Collects patient symptoms, clinical documents, and lifestyle metrics into structured, actionable context before consultation.
-2. **Evidence-Based Ayurveda**: Grounds botanical remedies and dosha profiling in peer-reviewed scientific literature (AYUSH / CCRAS research) rather than folklore.
-3. **Empowered Doctor-Patient Interactions**: Doctors receive synthesized clinical intake histories, allowing consultations to focus on diagnostic depth and compassionate care.
-4. **Inclusive Accessibility**: Designed from the ground up with bilingual support (English and Hindi) and responsive mobile interfaces.
+### The Sattva Solution
+**Sattva** establishes a **"Clarity Before Treatment"** paradigm by reimagining the preliminary healthcare experience into a unified, intelligent pipeline:
+* **Conversational AI Triage**: Engages patients in a structured, empathetic intake assessment that extracts symptom duration, severity, and clinical report findings into an organized, practitioner-ready summary.
+* **Machine Learning Condition Assessment**: Employs an XGBoost classification pipeline to evaluate lifestyle and physiological biomarkers (sleep quality, heart rate, BMI, steps, stress, activity), categorizing states into *Fit*, *At-Risk*, or *Unhealthy* with transparent class probabilities.
+* **Evidence-Based Ayurvedic Synthesis**: Demystifies Ayurvedic healthcare by linking constitutional dosha profiles (*Prakriti*) and herbal remedies directly to modern peer-reviewed scientific studies (AYUSH and CCRAS literature) with transparent evidence grades (Grade A to D).
+* **Empowered Doctor-Patient Synergy**: Bridges patients directly to verified Ayurvedic clinicians (BAMS / MD) via tele-consultations, equipping practitioners with pre-compiled intake dossiers so consultations can prioritize empathy, complex diagnosis, and targeted care.
+* **Linguistic Inclusivity**: Built with full native support for English and Hindi (हिन्दी) to bridge linguistic divides across urban and regional patient communities.
 
 ---
 
