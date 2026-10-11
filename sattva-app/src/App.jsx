@@ -43,6 +43,7 @@ export default function App() {
             <Route path="/consultation" element={<ProductRoute><Doctors /></ProductRoute>} />
             <Route path="/doctors/:id" element={<ProductRoute><DoctorProfile /></ProductRoute>} />
             <Route path="/ayurveda" element={<ProductRoute><Remedies /></ProductRoute>} />
+            <Route path="/remedies" element={<ProductRoute><Remedies /></ProductRoute>} />
             <Route path="/blogs" element={<ProductRoute><Blogs /></ProductRoute>} />
             <Route path="/ai-check" element={<ProductRoute><AI /></ProductRoute>} />
             <Route path="/dashboard" element={<ProductRoute><Dashboard /></ProductRoute>} />

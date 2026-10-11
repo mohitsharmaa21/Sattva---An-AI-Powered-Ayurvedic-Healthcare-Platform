@@ -826,9 +826,9 @@ export default function HealthConditionCheck() {
                         {classData.herbs.map((h, idx) => (
                           <Link
                             key={idx}
-                            to="/remedies"
+                            to={`/ayurveda?search=${encodeURIComponent(h.name)}`}
                             className="herbal-rec-card"
-                            title="View in Remedies Database"
+                            title={`View ${h.name} in Ayurvedic Remedies`}
                           >
                             <div>
                               <span className="herbal-rec-name">{h.name}</span>
@@ -843,7 +843,7 @@ export default function HealthConditionCheck() {
 
                   {/* Action Buttons */}
                   <div className="results-action-buttons">
-                    <Link to="/remedies" className="primary-button">
+                    <Link to="/ayurveda" className="primary-button">
                       Explore Recommended Remedies →
                     </Link>
                     <Link to="/consultation" className="secondary-button">

@@ -1,19 +1,53 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { REMEDIES } from "../data/remediesData";
 import { useLanguage } from "../context/LanguageContext";
 
 export default function Remedies() {
   const { t, language } = useLanguage();
-  const [selectedRemedy, setSelectedRemedy] = useState(null);
+  const [searchParams] = useSearchParams();
+  const initialHerbParam = searchParams.get("search") || searchParams.get("herb") || "";
+
+  const [selectedRemedy, setSelectedRemedy] = useState(() => {
+    if (initialHerbParam) {
+      return (
+        REMEDIES.find(
+          (r) =>
+            r.name.toLowerCase().includes(initialHerbParam.toLowerCase()) ||
+            r.commonName.toLowerCase().includes(initialHerbParam.toLowerCase()) ||
+            r.id.toLowerCase().includes(initialHerbParam.toLowerCase())
+        ) || null
+      );
+    }
+    return null;
+  });
 
   // Filter States
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(initialHerbParam);
+  const [prevSearchParam, setPrevSearchParam] = useState(initialHerbParam);
   const [categoryFilter, setCategoryFilter] = useState("");
   const [formFilter, setFormFilter] = useState("");
 
   // Toast State
   const [toast, setToast] = useState(null);
+
+  // Adjust state when URL search param changes without effect cascading renders
+  if (initialHerbParam !== prevSearchParam) {
+    setPrevSearchParam(initialHerbParam);
+    setSearchQuery(initialHerbParam);
+    if (initialHerbParam) {
+      const match = REMEDIES.find(
+        (r) =>
+          r.name.toLowerCase().includes(initialHerbParam.toLowerCase()) ||
+          r.commonName.toLowerCase().includes(initialHerbParam.toLowerCase()) ||
+          r.id.toLowerCase().includes(initialHerbParam.toLowerCase())
+      );
+      if (match) {
+        setSelectedRemedy(match);
+      }
+    }
+  }
 
   const filteredResults = useMemo(() => {
     let results = REMEDIES.map((rem) => {
