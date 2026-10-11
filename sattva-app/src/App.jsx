@@ -46,6 +46,7 @@ export default function App() {
             <Route path="/remedies" element={<ProductRoute><Remedies /></ProductRoute>} />
             <Route path="/blogs" element={<ProductRoute><Blogs /></ProductRoute>} />
             <Route path="/ai-check" element={<ProductRoute><AI /></ProductRoute>} />
+            <Route path="/ai" element={<ProductRoute><AI /></ProductRoute>} />
             <Route path="/dashboard" element={<ProductRoute><Dashboard /></ProductRoute>} />
             <Route path="/doctor-dashboard" element={<ProductRoute><DoctorDashboard /></ProductRoute>} />
             <Route path="/history" element={<ProductRoute><SymptomHistory /></ProductRoute>} />

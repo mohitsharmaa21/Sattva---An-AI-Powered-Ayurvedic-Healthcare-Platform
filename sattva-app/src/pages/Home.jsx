@@ -254,7 +254,7 @@ export default function Home() {
                 <h3>AI Triage</h3>
                 <p>Analyze symptoms instantly & safely.</p>
               </div>
-              <Link to="/ai" className="btn-module">
+              <Link to="/ai-check" className="btn-module">
                 Start Check
               </Link>
             </div>
