@@ -1,3 +1,4 @@
+import compat  # noqa: F401 - SAC CodeIntegrity shim
 import logging
 import os
 from contextlib import asynccontextmanager

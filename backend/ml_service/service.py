@@ -1,3 +1,4 @@
+import compat  # noqa: F401 - SAC CodeIntegrity shim
 import json
 import logging
 import os

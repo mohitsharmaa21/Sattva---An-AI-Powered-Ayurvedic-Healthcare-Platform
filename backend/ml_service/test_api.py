@@ -1,3 +1,4 @@
+import compat  # noqa: F401 - SAC CodeIntegrity shim
 import pytest
 from fastapi.testclient import TestClient
 from main import app
